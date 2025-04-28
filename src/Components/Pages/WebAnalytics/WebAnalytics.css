@@ -1,0 +1,298 @@
+ /* Main container with dark theme */
+.analytics-wrapper {
+    position: absolute;
+    left: 20%;
+    top: 12%;
+    width: 78%;
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    color: #eee;
+    min-height: 100vh;
+  }
+  
+  /* Header */
+  .analytics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: #181818;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .analytics-header:hover,
+  .analytics-header:active {
+    box-shadow: 0 0 10px #3981da88;
+  }
+  
+  .analytics-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .analytics-header p {
+    color: #aaa;
+    font-size: 0.95rem;
+  }
+  
+  .analytics-header a {
+    color: #3981da;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .analytics-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: #1e1e1e;
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .analytics-profile:hover,
+  .analytics-profile:active {
+    box-shadow: 0 0 10px #3981da88;
+  }
+  
+  .avatar {
+    background-color: #3981da;
+    color: #000;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 0.6rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    text-align: center;
+    font-size: 1rem;
+  }
+  
+  /* Controls */
+  .analytics-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: #181818;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .analytics-controls:hover,
+  .analytics-controls:active {
+    box-shadow: 0 0 10px #3981da88;
+  }
+  
+  .analytics-controls select {
+    background-color: #1f1f1f;
+    color: #eee;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: none;
+  }
+  
+  /* Export Button */
+  .export-btn {
+    background-color: #3981da;
+    border: none;
+    color: #000;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .export-btn:hover,
+  .export-btn:active {
+    box-shadow: 0 0 8px #3981daaa;
+  }
+  
+  /* Cards */
+  .analytics-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .card {
+    background: #1e1e1e;
+    padding: 1.2rem;
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .card:hover,
+  .card:active {
+    transform: translateY(-4px);
+    box-shadow: 0 0 15px #3981da88;
+  }
+  
+  .card h4 {
+    color: #bbb;
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+  }
+  
+  .card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .card p.up {
+    color: #3981da;
+  }
+  
+  .card p.down {
+    color: #ff6b6b;
+  }
+  
+  /* Chart Section */
+  .analytics-chart {
+    background: #1e1e1e;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .analytics-chart:hover,
+  .analytics-chart:active {
+    box-shadow: 0 0 12px #3981da77;
+  }
+  
+  .graph-title {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  /* Engagement & Actions */
+  .quick-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  
+  .quick-box {
+    flex: 1;
+    min-width: 300px;
+    background: #1e1e1e;
+    padding: 1.2rem;
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .quick-box:hover,
+  .quick-box:active {
+    box-shadow: 0 0 12px #3981da99;
+  }
+  
+  /* Bar Chart (User Engagement) */
+  .chart-placeholder {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 150px;
+    margin-bottom: 1rem;
+    gap: 8px;
+  }
+  
+  .chart-bar {
+    background: #3981da;
+    width: 14%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: #000;
+    border-radius: 6px;
+    min-height: 5px;
+    transition: background 0.3s ease;
+    position: relative;
+  }
+  
+  .chart-bar::after {
+    content: attr(data-value);
+    position: absolute;
+    top: -18px;
+    font-size: 0.75rem;
+    color: #ccc;
+    opacity: 0.8;
+  }
+  
+  .chart-bar:hover {
+    background: #90b3de;
+  }
+  
+  .chart-labels {
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+    font-size: 0.8rem;
+  }
+  
+  /* Quick Actions */
+  .quick-actions .btn {
+    display: block;
+    width: 100%;
+    margin-top: 0.7rem;
+    padding: 0.8rem 1rem;
+    border: none;
+    background-color: #2c2c2c;
+    color: #3981da;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .quick-actions .btn:hover,
+  .quick-actions .btn:active {
+    background-color: #444;
+    color: #fff;
+    box-shadow:   8px #3981da ;
+  }
+  .engagement-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: #1c1c1c;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+  }
+  
+  .bar-graph {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    height: 150px;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 10px;
+  }
+  
+  .chart-bar {
+    background-color: #00ffe0;
+    width: 25px;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    border-radius: 6px 6px 0 0;
+  }
+  
+  .chart-labels {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    color: #bbb;
+  }
+  
+  

@@ -1,0 +1,112 @@
+.user-wrapper {
+  width: 78%;
+  position: absolute;
+  left: 20%;
+  top: 12%;
+  height: 100vh;
+  color: #fbfbfb;
+
+}
+
+.setting-list {
+  display: flex;
+  justify-content: start;
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px;
+}
+
+.tab-btn {
+  background-color: transparent;
+  border: none;
+  color: #bbbbbb;
+  font-size: 16px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.tab-btn:hover {
+  background-color: #2a2a2a;
+  color: #71bcf9;
+}
+
+.tab-btn.active {
+  background-color: #2d2d2d;
+  color: #71bcf9;
+  border: 1px solid #71bcf9;
+}
+
+.content-container {
+  margin-top: 30px;
+}
+
+.user-details {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #3a3a3a;
+}
+
+.details-box1 h5 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.user-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #71bcf9;
+}
+
+.details-box2 {
+  font-size: 15px;
+  color: #aaaaaa;
+}
+
+.details-box2 svg {
+  vertical-align: middle;
+  color: #71bcf9;
+}
+
+.settings-form {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #3a3a3a;
+}
+
+.settings-form .form-label {
+  color: #bbbbbb;
+  font-weight: 500;
+}
+
+.settings-form .form-control {
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  color: #ffffff;
+  border-radius: 6px;
+  transition: border 0.3s ease;
+}
+
+.settings-form .form-control:focus {
+  border-color: #71bcf9;
+  box-shadow: 0 0 5px rgba(113, 188, 249, 0.4);
+}
+
+.settings-form .btn-primary {
+  background-color: #71bcf9;
+  border: none;
+  color: #000;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px 16px;
+  transition: background 0.3s ease;
+}
+
+.settings-form .btn-primary:hover {
+  background-color: #5bb2f5;
+}

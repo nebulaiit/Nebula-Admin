@@ -1,0 +1,145 @@
+.user-list-wrapper {
+    width: 78%;
+    position: absolute;
+    left: 20%;
+    top: 12%;
+    height: 100vh;
+    color: #fbfbfb;
+    padding: 25px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  
+  }
+  
+  /* Header section */
+  .user-list-wrapper .emp-list-contrainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+  }
+  
+  /* Add Employee Card */
+  .user-list-wrapper .container-addemp {
+    border: 1px solid #ffffff;
+    border-radius: 25px;
+    padding: 10px 20px;
+    background-color: #1c1c1c;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+  }
+  .user-list-wrapper .container-addemp:hover {
+    border-color: rgb(99, 173, 207);
+    box-shadow: 0 0 15px rgba(99, 173, 207, 0.35);
+    transform: translateY(-4px) scale(1.02);
+  }
+  
+  /* Table Section */
+  .user-list-wrapper .row2 .emp-table {
+    width: 100%;
+    background-color: transparent;
+  }
+  
+  .user-list-wrapper .row2 .emp-table .table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+  }
+  
+  .user-list-wrapper .row2 .emp-table table th {
+    padding: 15px;
+    background-color:#1c1c1c !important;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+
+    border: none;
+  }
+  
+  .user-list-wrapper .row2 .emp-table table td {
+    padding: 15px;
+    background-color: #1c1c1c !important;
+    color: #ffffff;
+    font-size: 14px;
+    border-top: 1px solid #1c1c1c;
+    border-bottom: 1px solid #1c1c1c;
+    transition: background-color 0.3s ease;
+
+  }
+  .user-list-wrapper .row2 .emp-table table tbody tr:hover td {
+    background-color: #1f1f1f;
+  }
+  
+  .user-list-wrapper .row2 .emp-table table tbody tr td .emp-title {
+    color: #ffffff !important;
+    font-weight: 500;
+  }
+  
+  /* Row height tweak */
+  .user-list-wrapper .row2 .emp-table table tbody tr {
+    height: 45px !important;
+  }
+  
+  /* Modal */
+  .modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #000000;
+    width: 100%;
+    color: #fbfbfb;
+    border: 1px solid #333333;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .submit-button{
+    border: 1px solid #135aa1 !important;
+    border-radius: 10px !important;
+  }
+  
+  /* Reusable button (optional but boss-level UI) */
+  .btn-modern {
+    background-color: #1c1c1c;
+    border: 1px solid #888;
+    color: #fbfbfb;
+    padding: 10px 20px; /* back to original size */
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .btn-modern:hover {
+    background-color: #000;
+    border-color: rgb(99, 173, 207);
+    box-shadow: 0 0 10px rgba(99, 173, 207, 0.3);
+    transform: scale(1.05);
+  }
+
+  .user-list-wrapper .row2 .toast-notification{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    min-height: 100px;
+    z-index: 99999;
+  }
+
+  .user-list-wrapper .row2 .toast-notification .toast{
+    background-color: #1c1c1c;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    min-width: 250px;
+  }
+
+.user-list-wrapper .row2 .toast-notification .toast .toast-header{
+  background-color: white ;
+}
+.user-list-wrapper .row2 .toast-notification .toast .toast-header .btn-close{
+  width: 15px !important;
+  height: 15px !important;
+}

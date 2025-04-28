@@ -1,0 +1,161 @@
+.dashboard-wrapper {
+  width: 78%;
+  position: absolute;
+  left: 20%;
+  top: 12%;
+  height: 100vh;
+  padding: 20px;
+
+}
+
+/* Welcome Section */
+.dashboard-wrapper .welcome-card {
+  margin: 0 15px 30px;
+  width: 100%;
+  background: #1c1c1c;
+  padding: 24px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  border: 1px solid #2d2d2d;
+
+}
+
+.dashboard-wrapper .welcome-card:hover {
+  transform: translateY(-7px);
+  border-color: #71bcf9;
+  box-shadow: 0 0 25px rgba(113, 188, 249, 0.25);
+}
+.dashboard-wrapper .welcome-card p {
+  color: #aaaaaa;
+  font-size: 16px;
+  margin: 15px 0;
+}
+
+/* Website Card */
+.dashboard-wrapper .website-card {
+  width: 300px;
+  height: 110px;
+  background-color: #1e1e1e;
+  border: 1px solid #2d2d2d;
+  border-radius: 15px;
+  margin: 35px 15px;
+  position: relative;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.dashboard-wrapper .website-card:hover {
+  transform: translateY(-7px);
+  border-color: #71bcf9;
+  box-shadow: 0 0 25px rgba(113, 188, 249, 0.25);
+}
+
+/* Logo Circle */
+.dashboard-wrapper .logo-wrapper {
+  background-color: #000000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #444;
+  transition: box-shadow 0.3s ease;
+}
+
+.dashboard-wrapper .logo-wrapper:hover {
+  box-shadow: 0 0 12px rgba(144, 202, 249, 0.3);
+}
+
+.dashboard-wrapper .logo-wrapper .website-icon {
+  width: 35px;
+  height: 35px;
+  color: #bbbbbb;
+}
+
+/* Text Section in Website Card */
+.dashboard-wrapper .text-wrapper {
+  position: absolute;
+  top: 25%;
+  left: 30%;
+}
+
+.dashboard-wrapper .text-wrapper p {
+  color: #dddddd;
+  font-size: 14px;
+}
+
+.dashboard-wrapper .text-wrapper .copy-icon {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  color: #aaaaaa;
+}
+
+/* Arrow */
+.dashboard-wrapper .arrow-icon {
+  position: absolute;
+  top: 42%;
+  right: 5%;
+  width: 20px;
+  height: 20px;
+  color: #999999;
+}
+
+/* Multiple Cards Row */
+.dashboard-wrapper .card-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 15px;
+  flex-wrap: wrap;
+}
+
+/* Card Menu Boxes */
+.dashboard-wrapper .card-menu {
+  width: 234px;
+  height: 112px;
+  background-color: #1e1e1e;
+  border: 1px solid #2e2e2e;
+  border-radius: 10px;
+  margin: 15px 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-wrapper .card-menu:hover {
+  transform: translateY(-6px);
+  border-color: #71bcf9;
+  box-shadow: 0 0 20px rgba(113, 188, 249, 0.3);
+}
+
+/* Inner Soft Glow on Hover */
+.dashboard-wrapper .card-menu:hover::after,
+.dashboard-wrapper .website-card:hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 10px rgba(113, 188, 249, 0.15);
+  pointer-events: none;
+}
+
+/* Card Content */
+.dashboard-wrapper .card-menu h5 {
+  margin: 15px;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.dashboard-wrapper .card-menu p {
+  margin: 15px 0 0 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #71bcf9;
+}
