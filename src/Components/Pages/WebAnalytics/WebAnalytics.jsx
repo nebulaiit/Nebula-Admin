@@ -77,19 +77,18 @@ export default function WebAnalytics() {
   };
 
   return (
-    <div className="analytics-wrapper dark-theme">
-      {/* Header */}
+    <div className="analytics-wrapper ">
+
       <div className="analytics-header">
-        <div>
+
           <h1>Analytics</h1>
           <p>
             Analyze your sales and traffic to know your brand’s growth{' '}
             <a href="#">Learn how →</a>
           </p>
-        </div>
+
       </div>
 
-      {/* Filter & Export */}
       <div className="analytics-controls">
         <select onChange={handleFilterChange}>
           <option>Last 7 Days</option>
@@ -101,7 +100,6 @@ export default function WebAnalytics() {
         </button>
       </div>
 
-      {/* Stats Cards */}
       <div className="analytics-cards">
         <div className="card">
           <h4>Website sessions</h4>
@@ -125,7 +123,6 @@ export default function WebAnalytics() {
         </div>
       </div>
 
-      {/* Website Sessions Overview */}
       <div className="analytics-chart" id="chart">
         <h3 className="graph-title">Website Sessions Overview</h3>
         <ResponsiveContainer width="100%" height={240}>
@@ -144,9 +141,7 @@ export default function WebAnalytics() {
         </ResponsiveContainer>
       </div>
 
-      {/* User Engagement + Quick Actions */}
       <div className="engagement-actions-container">
-        {/* User Engagement */}
         <div className="user-engagement">
           <h3>User Engagement</h3>
           <div className="engagement-container">
@@ -172,14 +167,13 @@ export default function WebAnalytics() {
             </div>
           </div>
         </div>
-
-        {/* Quick Actions */}
         <div className="quick-actions">
           <h3>Quick Actions</h3>
           <button className="btn action-btn">💰 View Transactions</button>
           <button className="btn action-btn">📄 Generate Reports</button>
         </div>
       </div>
+
     </div>
   );
 }
