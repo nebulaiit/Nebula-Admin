@@ -151,3 +151,31 @@
     border: 1px solid rgba(255, 255, 255, 0.273);
 
   }
+  .folder-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.folder-input input {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1;
+  font-size: 14px;
+}
+
+.folder-input button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.folder-input button:hover {
+  background-color: #45a049;
+}
