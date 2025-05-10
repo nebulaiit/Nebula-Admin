@@ -1,0 +1,153 @@
+.file-manager {
+    width: 100%;
+    padding: 32px;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #1e1e1e;
+    color: #ffffff;
+  }
+  
+  /* ===========================
+     Content Wrapper 
+  =========================== */
+  .file-manager .add-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+  }
+  
+  /* ===========================
+     Folder Section (Left) 
+  =========================== */
+  .file-manager .folder-section {
+    flex: 3;
+    border-radius: 12px;
+    padding: 24px;
+  }
+  
+  .file-manager .folder-section h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #ffffff;
+    border-bottom: 1px solid #444;
+    padding-bottom: 8px;
+  }
+  
+  /* Uploaded Content Items */
+  .file-manager .uploaded-content .content-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    background-color: #353535;
+    padding: 7px;
+  }
+  
+  /* Icon inside uploaded content or add list */
+  .file-manager .icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  /* ===========================
+     Dropdown Menu (Edit/Delete)
+  =========================== */
+  .file-manager .dropdown {
+    position: relative;
+  }
+  
+  .file-manager .dots-menu {
+    background: transparent;
+    border: none !important;
+    font-size: 18px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .file-manager .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 140%;
+    right: -7px;
+    background-color: #353535;
+    width: 100px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .file-manager .dropdown .dropdown-content {
+    display: block;
+  }
+  
+  .file-manager .dropdown-content button {
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 8px;
+    cursor: pointer;
+    color: white;
+
+  }
+  
+  .file-manager .dropdown-content button:hover {
+    background-color: #454545;
+  }
+  
+  /* ===========================
+     Add Content Section (Right) 
+  =========================== */
+  .file-manager .add-content {
+    flex: 1.2;
+
+    border-radius: 12px;
+    padding: 24px;
+
+  }
+  
+  .file-manager .add-content h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #ffffff;
+    border-bottom: 1px solid #444;
+    padding-bottom: 8px;
+  }
+  
+  .file-manager .add-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .file-manager .add-content li {
+    display: flex;
+    align-items: center;
+    background-color: #353535;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s;
+  }
+  
+  .file-manager .add-content li:hover {
+    background-color: #454545;
+    transform: translateX(4px);
+  }
+
+  .file-manager .input-button-wrapper button{
+
+    border-radius: 15px;
+    background: transparent;
+    color: white;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.273);
+
+  }

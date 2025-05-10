@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import CourseBasicInfo from './CourseBasicInfo/CourseBasicInfo';
 import EditPriceForm from './EditPrice/EditPriceForm';
+import CourseContent from './CourseContent/CourseContent';
 
 export default function CourseFormContainer() {
 
@@ -50,13 +51,13 @@ export default function CourseFormContainer() {
                     <div className='steps'> 4</div>
                     
                 </div>
-                <p className='mt-1 text-light'> Bundle(Optional) </p>
+                <p className='mt-1 text-light'> Publish </p>
                 </div>
             </div>
             <div className="course-form-container">
                 {activeStep === 1 && <CourseBasicInfo onNext={() => setActiveStep(2)} />}
                 {activeStep === 2 && (<EditPriceForm onBack={() => setActiveStep(1)} onNext={() => setActiveStep(3)} />)}
-                {activeStep === 3 && (<AddCourseContent onBack={() => setActiveStep(2)} />)}
+                {activeStep === 3 && (<CourseContent onBack={() => setActiveStep(2)} onNext={() => setActiveStep(4)} />)}
             </div>
         </div>
     </div>
