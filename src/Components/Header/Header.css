@@ -128,18 +128,18 @@
     background: #1c1c1c;
     backdrop-filter: blur(12px);
     /* border-radius: 12px; */
-      width: 280px;
-      height: 100vh;
-      border-right: 2px solid rgba(255, 255, 255, 0.253);
-      position: relative;
-      position: fixed;
-      top: 0;
-      left: 0;
-      overflow-y: scroll;
-      scrollbar-width:thin; 
-      scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-      z-index: 1000;
-      color: white;
+    width: 280px;
+    height: 100vh;
+    border-right: 2px solid rgba(255, 255, 255, 0.253);
+    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+    scrollbar-width:thin; 
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    z-index: 1000;
+    color: white;
   }
   
   .sidebar img{

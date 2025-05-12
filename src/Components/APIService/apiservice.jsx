@@ -61,3 +61,68 @@ export const getUserDetials = async (userId)=>{
     }
 } 
 
+export const addNewTutorial = async (token, {tutorialName})=>{
+    const url = `${API_BASE_URL}${API_URLs.ADD_TUTORIAL}`;
+    console.log({tutorialName});
+    try {
+        const response = await axios.post(url, {tutorialName},
+                    { headers: {
+                        Authorization:` Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    }
+                });
+        console.log(response);
+        return response.data;
+        
+    } catch (error) {
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+} 
+
+export const getAllTutorial = async ()=>{
+    const url = `${API_BASE_URL}${API_URLs.GET_ALL_TUTORIAL}`;
+
+    try {
+        const response = await axios.get(url);
+        // console.log(response);
+        return response.data;
+        
+    } catch (error) {
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+} 
+
+export const getTutorialByName = async (tutorialName)=>{
+    const url = `${API_BASE_URL}${API_URLs.GET_TUTORIAL_BY_NAME}/${tutorialName}`;
+    console.log(url)
+    try {
+        const response = await axios.get(url);
+        // console.log(response);
+        return response.data;
+        
+    } catch (error) {
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+} 
+
+export const addNewHeading = async (id,token, {tutorialName})=>{
+    const url = `${API_BASE_URL}${API_URLs.ADD_TUTORIAL}`;
+    console.log({tutorialName});
+    try {
+        const response = await axios.post(url, {tutorialName},
+                    { headers: {
+                        Authorization:` Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    }
+                });
+        console.log(response);
+        return response.data;
+        
+    } catch (error) {
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+} 

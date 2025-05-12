@@ -15,6 +15,7 @@ import WebAnalytics from './Components/Pages/WebAnalytics/WebAnalytics'
 import ResetPassword from './Components/Login/ResetPassword'
 import NewPassword from './Components/Login/NewPassw'
 import WebsiteManager from './Components/Pages/WebsiteManager/WebsiteManager'
+import EditContent from './Components/Pages/Edit Content/EditContent'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path='/user-account' element={<User/>}/>
           <Route path='/add-content' element={<Content/>}/>
+          <Route path='/edit-content' element={<EditContent/>}/>
           <Route path='/Course-list' element={<NewCourse/>}/>
           <Route path='/add-Course' element={<CourseFormContainer/>}/>
           <Route path='/user-list' element={<UserList/>}/>

@@ -1,304 +1,231 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Content.css';
-
+import { addNewTutorial, getAllTutorial } from '../../APIService/apiservice'; // Your API function for submitting tutorial data
 
 export default function Content() {
-  const [tutorial, setTutorial] = useState('');
-  const [heading, setHeading] = useState([{ name: '', content: [], images: [], videos: [] }]);
-  const [topics, setTopics] = useState([{ name: '', content: [], images: [], videos: [] }]);
-  const [articles, setArticles] = useState([]);
-  const [step, setStep] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [formModalOpen, setFormModalOpen] = useState(false);
+  const [tutorialList , setTutorialList] = useState([])
 
-  useEffect(() => {
-    const storedArticles = JSON.parse(localStorage.getItem('allArticles'));
-    setArticles(Array.isArray(storedArticles) ? storedArticles : []);
-  }, []);
+  const [tutorialName, setTutorialName] = useState('');
+  const [headingName, setHeadingName] = useState('');
+  const [orderIndex, setOrderIndex] = useState(0);
 
-  const handleOpen = () => {
-    setTutorial('');
-    setHeading([{ name: '', content: [], images: [], videos: [] }]);
-    setTopics([{ name: '', content: [], images: [], videos: [] }]);
-    setStep(1);
-    setFormModalOpen(true);
+  const [topicName, setTopicName] = useState('');
+  const [urlSlug, setUrlSlug] = useState('');
+
+  const [contentHeading, setContentHeading] = useState('');
+  const [blockType, setBlockType] = useState('heading');
+  const [blockValue, setBlockValue] = useState('');
+  const [blockOrder, setBlockOrder] = useState(0);
+
+  const [blocks, setBlocks] = useState([]);
+  const [contents, setContents] = useState([]);
+  const [topics, setTopics] = useState([]);
+  const [headings, setHeadings] = useState([]);
+
+  const [showModal, setShowModal] = useState(false);
+
+const handleOpenModal = () => setShowModal(true);
+const handleCloseModal = () => {
+  console.log('Closing modal'); // Debug log
+  setShowModal(false);
+};
+
+  // Handlers
+  const handleAddBlock = () => {
+    setBlocks([
+      ...blocks,
+      {
+        type: blockType,
+        value: blockValue,
+        orderIndex: blockOrder,
+      },
+    ]);
+    setBlockValue('');
+    setBlockOrder(blockOrder + 1);
   };
 
-  const handleFormClose = () => {
-    setFormModalOpen(false);
-    setTutorial('');
-    setHeading([{ name: '', content: [], images: [], videos: [] }]);
-    setTopics([{ name: '', content: [], images: [], videos: [] }]);
-    setStep(1);
+  const handleAddContent = () => {
+    setContents([
+      ...contents,
+      {
+        contentHeading,
+        blocks,
+      },
+    ]);
+    setContentHeading('');
+    setBlocks([]);
   };
 
-  const handleSelectionContinue = () => {
-    if (step === 1 && !(typeof tutorial === 'string' && tutorial.trim())) {
-     
-      return alert('Please enter a tutorial name!');
-    }
-
-    if (step === 2 && heading.some(h => !(typeof h.name === 'string' && h.name.trim()))) {
-      return alert('Please enter a heading!');
-    }
-
-    if (step === 3 && topics.some(topic => !(typeof topic.name === 'string' && topic.name.trim()))) {
-      return alert('Please enter at least one topic name!');
-    }
-
-    if (step === 4 && topics.some(topic => !topic.content || !topic.content.length)) {
-      return alert('Please enter content for all topics!');
-    }
-
-    setStep(step + 1);
+  const handleAddTopic = () => {
+    setTopics([
+      ...topics,
+      {
+        topicName,
+        urlSlug,
+        contents,
+      },
+    ]);
+    setTopicName('');
+    setUrlSlug('');
+    setContents([]);
   };
 
-  const addHeading = () => {
-    setHeading([...heading, { name: '', content: [], images: [], videos: [] }]);
+  const handleAddHeading = () => {
+    setHeadings([
+      ...headings,
+      {
+        headingName,
+        orderIndex,
+        topics,
+      },
+    ]);
+    setHeadingName('');
+    setOrderIndex(orderIndex + 1);
+    setTopics([]);
   };
 
-  const removeHeading = (indexToRemove) => {
-    const updated = [...heading];
-    updated.splice(indexToRemove, 1);
-    setHeading(updated);
-  };
-
-  const addTopic = () => {
-    setTopics([...topics, { name: '', content: [], images: [], videos: [] }]);
-  };
-
-  const removeTopic = (indexToRemove) => {
-    const updated = topics.filter((_, index) => index !== indexToRemove);
-    setTopics(updated);
-  };
-
-  const addContent = (index) => {
-    const updated = [...topics];
-    updated[index].content.push({ type: 'text', value: '' });
-    setTopics(updated);
-  };
-
-  const removeContent = (topicIndex, contentIndex) => {
-    const updated = [...topics];
-    updated[topicIndex].content.splice(contentIndex, 1);
-    setTopics(updated);
-  };
-
-  const handleImageChange = (topicIndex, files) => {
-    const updated = [...topics];
-    updated[topicIndex].images = Array.from(files);
-    setTopics(updated);
-  };
-
-  const handleVideoChange = (topicIndex, files) => {
-    const updated = [...topics];
-    updated[topicIndex].videos = Array.from(files);
-    setTopics(updated);
-  };
-
-  const handleSave = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    const newArticle = {
-      tutorial,
-      heading,
-      topics: topics.map((topic) => ({
-        name: topic.name,
-        content: topic.content,
-        images: topic.images.map((img) => (typeof img === 'string' ? img : URL.createObjectURL(img))),
-        videos: topic.videos.map((vid) => (typeof vid === 'string' ? vid : URL.createObjectURL(vid))),
-      })),
+    const tutorial = {
+      tutorialName,
+      heading: headings,
     };
 
-    const updatedArticles = [...articles, newArticle];
-    setArticles(updatedArticles);
-    localStorage.setItem('allArticles', JSON.stringify(updatedArticles));
-    setLoading(false);
-    handleFormClose();
+    console.log('Tutorial Data:', tutorial);
+
+    // try {
+    //   // Call the API service to save the tutorial data
+    //   const response = await addNewTutorial(tutorial);
+    //   console.log('Tutorial saved successfully:', response.data);
+    // } catch (error) {
+    //   console.error('Error saving tutorial:', error);
+    // }
+
+    // Reset all fields after submitting
+    setTutorialName('');
+    setHeadings([]);
   };
+
+  useEffect(()=>{  
+    const fetchTutorialList = async () =>{
+        try{
+            const respone = await getAllTutorial();
+            setTutorialList(respone);
+        }
+        catch (error) {
+            console.log(error)
+        }
+    };
+    fetchTutorialList();
+  },[])
 
   return (
     <div className="content-wrapper">
-      <h2>Add New Content</h2>
-      <button onClick={handleOpen} style={{ marginBottom: '1rem' }}>
-        ➕ Add Article
-      </button>
+      <div className='d-flex justify-content-between'>
+        <div>
+          <h2>Add New Tutorial</h2>
+          <p>Add & View Courses</p>
+        </div>
+        <button className='add-content' onClick={handleOpenModal} style={{ marginBottom: '1rem' }}>
+          ➕ Add Article
+        </button>
+      </div>
 
-      {articles.length === 0 ? (
-        <p>No articles found. Please add a new article.</p>
-      ) : (
-        articles.map((article, index) => (
-          <div className='content-container' key={index} >
-            <h3>Tutorial: {article.tutorial}</h3>
-            <p>Heading: {article.heading.map(h => h.name).join(', ')}</p>
+      <div className='display-tutorial'>
+  
+        <ul className='p-0' >
+          {tutorialList.map((tutorial)=>(
+            <li key={tutorial.id}>Tutorial Name :<h4> {tutorial.tutorialName}</h4></li>
+          ))}
+        </ul>
 
-            {Array.isArray(article.topics) &&
-              article.topics.map((topic, secIndex) => (
-                <div key={secIndex} style={{ marginBottom: '1rem' }}>
-                  <strong>Topic: {topic.name}</strong>
-                  {topic.content.map((contentItem, i) => (
-                    <p key={i}>{contentItem.value}</p>
-                  ))}
-                  {topic.images.length > 0 && (
-                    <div className="image-preview">
-                      {topic.images.map((img, i) => (
-                        <img key={i} src={img} alt="uploaded" style={{ maxWidth: '100%', marginTop: '0.5rem' }} />
-                      ))}
-                    </div>
-                  )}
-                  {topic.videos.length > 0 && (
-                    <div className="video-preview">
-                      {topic.videos.map((vid, i) => (
-                        <video key={i} width="320" height="240" controls>
-                          <source src={vid} type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-          </div>
-        ))
-      )}
+      </div>
 
-      {formModalOpen && (
-        <div className="modal-container">
-          <form onSubmit={handleSave}>
-            <h3>Add Article</h3>
-
-            {step === 1 && (
-              <>
+    {showModal && (
+      <div className="modal-overlay">
+        <div className='modal-wrapper'>
+          <button type="button" className='close-btn' onClick={handleCloseModal}>X</button>
+          <form onSubmit={handleSubmit}>
+        
+            <div className='modal-items'>
+              <h4>Add Tutorial</h4>
+              <input
+                type="text"
+                placeholder="Tutorial Name"
+                value={tutorialName}
+                onChange={(e) => setTutorialName(e.target.value)}
+              />
+            </div>
+            <div className='modal-items'>
+              <h4>Heading</h4>
+              <input
+                type="text"
+                placeholder="Heading Name"
+                value={headingName}
+                onChange={(e) => setHeadingName(e.target.value)}
+              />
+              <input
+                type="number"
+                placeholder="Order Index"
+                value={orderIndex}
+                onChange={(e) => setOrderIndex(parseInt(e.target.value))}
+              />
+              <br />
+              <button className='submit-btn' type="button" onClick={handleAddHeading}>Add Heading</button>
+            </div>
+            <div className='modal-items'>
+              <h4>Topic</h4>
+              <input
+                type="text"
+                placeholder="Topic Name"
+                value={topicName}
+                onChange={(e) => setTopicName(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="URL Slug"
+                value={urlSlug}
+                onChange={(e) => setUrlSlug(e.target.value)}
+              />
+              <br />
+              <button type="button" className='submit-btn' onClick={handleAddTopic}>Add Topic</button>
+            </div>
+            <div className='d-flex justify-content-between'>
+              <div className='modal-items'>
+                <h4>Content</h4>
                 <input
                   type="text"
-                  placeholder="Tutorial"
-                  value={tutorial}
-                  onChange={(e) => setTutorial(e.target.value)}
-                  style={{ display: 'block', margin: '1rem 0', width: '100%' }}
+                  placeholder="Content Heading"
+                  value={contentHeading}
+                  onChange={(e) => setContentHeading(e.target.value)}
                 />
-                <button type="button" onClick={handleSelectionContinue}>Continue</button>
-              </>
-            )}
-
-            {step === 2 && (
-              <>
-                {heading.map((item, index) => (
-                  <div key={index}>
-                    <input
-                      type="text"
-                      placeholder={`Heading Name ${index + 1}`}
-                      value={item.name}
-                      onChange={(e) => {
-                        const updated = [...heading];
-                        updated[index].name = e.target.value;
-                        setHeading(updated);
-                      }}
-                      style={{ display: 'block', margin: '1rem 0', width: '100%' }}
-                    />
-                    {heading.length > 1 && (
-                      <button type="button" onClick={() => removeHeading(index)} style={{ color: 'red' }}>
-                        Remove Heading
-                      </button>
-                    )}
-                  </div>
-                ))}
-                <button type="button" onClick={addHeading}>Add Another Heading</button>
-                <button type="button" onClick={handleSelectionContinue} style={{ display: 'block', marginTop: '1rem' }}>
-                  Continue
-                </button>
-              </>
-            )}
-
-            {step === 3 && (
-              <>
-                {topics.map((topic, index) => (
-                  <div key={index}>
-                    <input
-                      type="text"
-                      placeholder={`Topic Name ${index + 1}`}
-                      value={topic.name}
-                      onChange={(e) => {
-                        const updated = [...topics];
-                        updated[index].name = e.target.value;
-                        setTopics(updated);
-                      }}
-                      style={{ display: 'block', margin: '1rem 0', width: '100%' }}
-                    />
-                    {topics.length > 1 && (
-                      <button type="button" onClick={() => removeTopic(index)} style={{ color: 'red' }}>
-                        Remove Topic
-                      </button>
-                    )}
-                  </div>
-                ))}
-                <button type="button" onClick={addTopic}>Add Another Topic</button>
-                <button type="button" onClick={handleSelectionContinue} style={{ display: 'block', marginTop: '1rem' }}>
-                  Continue
-                </button>
-              </>
-            )}
-
-            {step === 4 && (
-              <>
-                {topics.map((topic, topicIndex) => (
-                  <div key={topicIndex}>
-                    <strong>{topic.name}</strong>
-                    {topic.content.map((contentItem, contentIndex) => (
-                      <input
-                        key={contentIndex}
-                        type="text"
-                        placeholder={`Content ${contentIndex + 1}`}
-                        value={contentItem.value}
-                        onChange={(e) => {
-                          const updated = [...topics];
-                          updated[topicIndex].content[contentIndex].value = e.target.value;
-                          setTopics(updated);
-                        }}
-                        style={{ display: 'block', margin: '0.5rem 0', width: '100%' }}
-                      />
-                    ))}
-                    <button type="button" onClick={() => addContent(topicIndex)}>Add Content</button>
-                    {topic.content.length > 0 && (
-                      <button
-                        type="button"
-                        onClick={() => removeContent(topicIndex, topic.content.length - 1)}
-                        style={{ color: 'red', marginLeft: '0.5rem' }}
-                      >
-                        Remove Last Content
-                      </button>
-                    )}
-                    <br />
-                    <label style={{ marginTop: '0.5rem' }}>
-                      Upload Images:
-                      <input
-                        type="file"
-                        multiple
-                        accept="image/*"
-                        onChange={(e) => handleImageChange(topicIndex, e.target.files)}
-                      />
-                    </label>
-                    <br />
-                    <label style={{ marginTop: '0.5rem' }}>
-                      Upload Videos:
-                      <input
-                        type="file"
-                        multiple
-                        accept="video/*"
-                        onChange={(e) => handleVideoChange(topicIndex, e.target.files)}
-                      />
-                    </label>
-                  </div>
-                ))}
-                <button type="submit" style={{ display: 'block', marginTop: '1rem' }}>
-                  Save Article
-                </button>
-              </>
-            )}
+                  <br />
+                <button type="button" className='submit-btn' onClick={handleAddContent}>Add Content</button>
+              </div>
+              <div className='modal-items'>
+                <h4>Add Block</h4>
+                <select value={blockType} onChange={(e) => setBlockType(e.target.value)}>
+                  <option value="heading">Heading</option>
+                  <option value="paragraph">Paragraph</option>
+                  <option value="image">Image</option>
+                  <option value="video">Video</option>
+                </select>
+                <input
+                  type="text"
+                  placeholder="Block Value"
+                  value={blockValue}
+                  onChange={(e) => setBlockValue(e.target.value)}
+                />
+                <br />
+                <button type="button" className='submit-btn' onClick={handleAddBlock}>Add Block</button>
+              </div>
+            </div>
+            <button type="submit" className='final-submit-btn' disabled={headings.length === 0} >Save Tutorial</button>
           </form>
         </div>
-      )}
+      </div>
+    )}
     </div>
-
   );
 }
