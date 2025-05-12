@@ -10,6 +10,10 @@ export default function CourseContent({ onBack, onNext }) {
   const [showFolderInput, setShowFolderInput] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
 
+  const [selectedFolderId, setSelectedFolderId] = useState(null);
+  const [selectedFolderName, setSelectedFolderName] = useState("");
+  const [activeFolderId, setActiveFolderId] = useState(null);
+
   const fileInputs = useRef({});
 
   const contentTypes = [
@@ -19,51 +23,6 @@ export default function CourseContent({ onBack, onNext }) {
     { label: "Image", icon: "🖼", accept: "image/*" },
     { label: "ZIP file", icon: "🗜", accept: ".zip,.rar,.7z" },
   ];
-
-  const handleOptionClick = (label) => {
-    fileInputs.current[label]?.click();
-  };
-
-  const handleFileUpload = (label, event, folderId = null) => {
-    const file = event.target.files[0];
-    if (file) {
-      const newContent = {
-        label,
-        fileName: file.name,
-        fileType: file.type,
-        fileId: Date.now(),
-      };
-
-      setUploadedContent(prev =>
-        folderId
-          ? prev.map(item =>
-              item.fileId === folderId
-                ? { ...item, children: [...(item.children || []), newContent] }
-                : item
-            )
-          : [...prev, newContent]
-      );
-    }
-  };
-
-  const handleDelete = (fileId) => {
-    setUploadedContent(prev =>
-      prev.filter(item => item.fileId !== fileId)
-    );
-    setActiveDropdown(null);
-  };
-
-  const handleEdit = (fileId) => {
-    const newFileName = prompt("Enter new file name:");
-    if (newFileName) {
-      setUploadedContent(prev =>
-        prev.map(item =>
-          item.fileId === fileId ? { ...item, fileName: newFileName } : item
-        )
-      );
-    }
-    setActiveDropdown(null);
-  };
 
   const toggleDropdown = (fileId) => {
     setActiveDropdown(prev => (prev === fileId ? null : fileId));
@@ -93,11 +52,75 @@ export default function CourseContent({ onBack, onNext }) {
     setShowFolderInput(false);
   };
 
-  const toggleFolder = (id) => {
-    setExpandedFolders(prev => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+  const toggleFolder = (folderId, folderName) => {
+    setExpandedFolders(prev => {
+      const isOpening = !prev[folderId];
+
+      if (isOpening) {
+        setSelectedFolderId(folderId);
+        setSelectedFolderName(folderName);
+      } else {
+        setSelectedFolderId(null);
+        setSelectedFolderName("");
+      }
+
+      return {
+        ...prev,
+        [folderId]: isOpening,
+      };
+    });
+
+    setActiveFolderId(prev => (prev === folderId ? null : folderId));
+  };
+
+  const handleOptionClick = (label, folderId) => {
+    if (fileInputs.current[label]) {
+      fileInputs.current[label].dataset.folderId = folderId || "";
+      fileInputs.current[label].click();
+    }
+  };
+
+  const handleFileUpload = (label, e) => {
+    const file = e.target.files[0];
+    const folderId = e.target.dataset.folderId || null;
+
+    if (file) {
+      const newContent = {
+        label,
+        fileName: file.name,
+        fileType: file.type,
+        fileId: Date.now(),
+      };
+
+      setUploadedContent(prev =>
+        folderId
+          ? prev.map(item =>
+              item.fileId === parseInt(folderId)
+                ? { ...item, children: [...(item.children || []), newContent] }
+                : item
+            )
+          : [...prev, newContent]
+      );
+    }
+  };
+
+  const handleDelete = (fileId) => {
+    setUploadedContent(prev =>
+      prev.filter(item => item.fileId !== fileId)
+    );
+    setActiveDropdown(null);
+  };
+
+  const handleEdit = (fileId) => {
+    const newFileName = prompt("Enter new file name:");
+    if (newFileName) {
+      setUploadedContent(prev =>
+        prev.map(item =>
+          item.fileId === fileId ? { ...item, fileName: newFileName } : item
+        )
+      );
+    }
+    setActiveDropdown(null);
   };
 
   return (
@@ -116,9 +139,13 @@ export default function CourseContent({ onBack, onNext }) {
                       <span
                         className="icon"
                         style={{ cursor: item.label === "Folder" ? "pointer" : "default" }}
-                        onClick={() => item.label === "Folder" && toggleFolder(item.fileId)}
+                        onClick={() =>
+                          item.label === "Folder" && toggleFolder(item.fileId, item.fileName)
+                        }
                       >
-                        {item.label === "Folder" ? "📁" : contentTypes.find(ct => ct.label === item.label)?.icon}
+                        {item.label === "Folder"
+                          ? "📁"
+                          : contentTypes.find(ct => ct.label === item.label)?.icon}
                       </span>{" "}
                       {item.fileName} (Type: {item.label})
                     </div>
@@ -144,38 +171,28 @@ export default function CourseContent({ onBack, onNext }) {
                     {/* Folder Content */}
                     {item.label === "Folder" && expandedFolders[item.fileId] && (
                       <div className="folder-contents ps-4">
-                        <ul>
-                          {item.children?.map((child) => (
+                        <p>Inside folder: <strong>{item.fileName}</strong></p>
+                        <div className="add-content-inside-folder">
+                          {contentTypes.map((type) => (
+                            <button
+                              key={type.label}
+                              className="upload-button"
+                              onClick={() => handleOptionClick(type.label, item.fileId)}
+                            >
+                              {type.icon} {type.label}
+                            </button>
+                          ))}
+                        </div>
+
+                        {/* Show uploaded files inside folder */}
+                        <ul className="nested-content-list">
+                          {(item.children || []).map(child => (
                             <li key={child.fileId}>
-                              <span className="icon">
-                                {contentTypes.find(ct => ct.label === child.label)?.icon}
-                              </span>{" "}
+                              {contentTypes.find(ct => ct.label === child.label)?.icon}{" "}
                               {child.fileName} (Type: {child.label})
                             </li>
                           ))}
                         </ul>
-                        <div className="folder-upload-options">
-                          {contentTypes.map((ct) => (
-                            <div key={ct.label} className="small-upload">
-                              <span
-                                className="icon"
-                                onClick={() =>
-                                  fileInputs.current[`${ct.label}_${item.fileId}`]?.click()
-                                }
-                                style={{ cursor: "pointer" }}
-                              >
-                                {ct.icon}
-                              </span>{" "}
-                              <input
-                                type="file"
-                                ref={(el) => (fileInputs.current[`${ct.label}_${item.fileId}`] = el)}
-                                accept={ct.accept}
-                                style={{ display: "none" }}
-                                onChange={(e) => handleFileUpload(ct.label, e, item.fileId)}
-                              />
-                            </div>
-                          ))}
-                        </div>
                       </div>
                     )}
                   </li>
@@ -187,6 +204,11 @@ export default function CourseContent({ onBack, onNext }) {
 
         <div className="add-content">
           <h3>Add Content</h3>
+          {selectedFolderId && (
+            <p className="text-sm text-muted">
+              Adding to folder: <strong>{selectedFolderName}</strong>
+            </p>
+          )}
           <ul>
             <li className="file-content" onClick={() => setShowFolderInput(true)}>
               <span className="icon">📁</span> Folder
@@ -205,7 +227,7 @@ export default function CourseContent({ onBack, onNext }) {
             )}
 
             {contentTypes.map((item) => (
-              <li key={item.label} onClick={() => handleOptionClick(item.label)}>
+              <li key={item.label} onClick={() => handleOptionClick(item.label, selectedFolderId)}>
                 <span className="icon">{item.icon}</span> {item.label}
                 <input
                   type="file"
