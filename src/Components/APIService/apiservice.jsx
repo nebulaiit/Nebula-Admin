@@ -24,8 +24,8 @@ export const loginUser = async (body) =>{
 
     try {
         const response = await axios.post(url, body)
-        console.log(response);
         return response.data;
+        console.log(response);
         
     } catch (error) {
         console.error('Error:', error.response || error.message);

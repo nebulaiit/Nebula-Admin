@@ -10,6 +10,10 @@ export default function CourseContent({ onBack, onNext }) {
   const [showFolderInput, setShowFolderInput] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
 
+  const [selectedFolderId, setSelectedFolderId] = useState(null);
+  const [selectedFolderName, setSelectedFolderName] = useState("");
+  const [activeFolderId, setActiveFolderId] = useState(null);
+
   const fileInputs = useRef({});
 
   const contentTypes = [
@@ -19,51 +23,6 @@ export default function CourseContent({ onBack, onNext }) {
     { label: "Image", icon: "🖼", accept: "image/*" },
     { label: "ZIP file", icon: "🗜", accept: ".zip,.rar,.7z" },
   ];
-
-  const handleOptionClick = (label) => {
-    fileInputs.current[label]?.click();
-  };
-
-  const handleFileUpload = (label, event, folderId = null) => {
-    const file = event.target.files[0];
-    if (file) {
-      const newContent = {
-        label,
-        fileName: file.name,
-        fileType: file.type,
-        fileId: Date.now(),
-      };
-
-      setUploadedContent(prev =>
-        folderId
-          ? prev.map(item =>
-              item.fileId === folderId
-                ? { ...item, children: [...(item.children || []), newContent] }
-                : item
-            )
-          : [...prev, newContent]
-      );
-    }
-  };
-
-  const handleDelete = (fileId) => {
-    setUploadedContent(prev =>
-      prev.filter(item => item.fileId !== fileId)
-    );
-    setActiveDropdown(null);
-  };
-
-  const handleEdit = (fileId) => {
-    const newFileName = prompt("Enter new file name:");
-    if (newFileName) {
-      setUploadedContent(prev =>
-        prev.map(item =>
-          item.fileId === fileId ? { ...item, fileName: newFileName } : item
-        )
-      );
-    }
-    setActiveDropdown(null);
-  };
 
   const toggleDropdown = (fileId) => {
     setActiveDropdown(prev => (prev === fileId ? null : fileId));
@@ -88,16 +47,97 @@ export default function CourseContent({ onBack, onNext }) {
       label: "Folder",
       children: [],
     };
-    setUploadedContent(prev => [...prev, newFolder]);
+
+    setUploadedContent(prev =>
+      selectedFolderId
+        ? prev.map(item =>
+            item.fileId === selectedFolderId
+              ? { ...item, children: [...(item.children || []), newFolder] }
+              : item
+          )
+        : [...prev, newFolder]
+    );
+
     setNewFolderName("");
     setShowFolderInput(false);
   };
 
-  const toggleFolder = (id) => {
-    setExpandedFolders(prev => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+  const toggleFolder = (folderId, folderName) => {
+    setExpandedFolders(prev => {
+      const isOpening = !prev[folderId];
+
+      if (isOpening) {
+        setSelectedFolderId(folderId);
+        setSelectedFolderName(folderName);
+      } else {
+        setSelectedFolderId(null);
+        setSelectedFolderName("");
+      }
+
+      return {
+        ...prev,
+        [folderId]: isOpening,
+      };
+    });
+
+    setActiveFolderId(prev => (prev === folderId ? null : folderId));
+  };
+
+  const handleOptionClick = (label, folderId) => {
+    if (fileInputs.current[label]) {
+      fileInputs.current[label].dataset.folderId = folderId || "";
+      fileInputs.current[label].click();
+    }
+  };
+
+  const handleFileUpload = (label, e) => {
+    const file = e.target.files[0];
+    const folderId = e.target.dataset.folderId || null;
+
+    if (file) {
+      const newContent = {
+        label,
+        fileName: file.name,
+        fileType: file.type,
+        fileId: Date.now(),
+      };
+
+      setUploadedContent(prev =>
+        folderId
+          ? prev.map(item =>
+              item.fileId === parseInt(folderId)
+                ? { ...item, children: [...(item.children || []), newContent] }
+                : item
+            )
+          : [...prev, newContent]
+      );
+    }
+  };
+
+  const handleDelete = (fileId) => {
+    setUploadedContent(prev =>
+      prev.filter(item => item.fileId !== fileId)
+    );
+
+    // If deleted folder is selected, go to root
+    if (selectedFolderId === fileId) {
+      setSelectedFolderId(null);
+      setSelectedFolderName("");
+    }
+
+    setActiveDropdown(null);
+  };
+
+  const handleEdit = (fileId) => {
+    const newFileName = prompt("Enter new file name:");
+    if (newFileName) {
+      setUploadedContent(prev =>
+        prev.map(item =>
+          item.fileId === fileId ? { ...item, fileName: newFileName } : item
+        )
+      );
+    }
+    setActiveDropdown(null);
   };
 
   return (
@@ -109,78 +149,84 @@ export default function CourseContent({ onBack, onNext }) {
             {uploadedContent.length === 0 ? (
               <p>No content uploaded yet.</p>
             ) : (
-              <ul className="p-0">
-                {uploadedContent.map((item) => (
-                  <li key={item.fileId} className="content-item">
-                    <div>
-                      <span
-                        className="icon"
-                        style={{ cursor: item.label === "Folder" ? "pointer" : "default" }}
-                        onClick={() => item.label === "Folder" && toggleFolder(item.fileId)}
-                      >
-                        {item.label === "Folder" ? "📁" : contentTypes.find(ct => ct.label === item.label)?.icon}
-                      </span>{" "}
-                      {item.fileName} (Type: {item.label})
-                    </div>
-
-                    <div className="dropdown">
-                      <button
-                        className="dots-menu"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleDropdown(item.fileId);
-                        }}
-                      >
-                        ⋮
-                      </button>
-                      {activeDropdown === item.fileId && (
-                        <div className="dropdown-content">
-                          <button onClick={() => handleEdit(item.fileId)}>Edit</button>
-                          <button onClick={() => handleDelete(item.fileId)}>Delete</button>
+              <div>
+                 {selectedFolderId && (
+                  <div className="folder-indicator d-flex justify-content-between mb-2">
+                    <p className="text-sm text-light mb-1">
+                      Adding to folder: <strong>{selectedFolderName}</strong>
+                    </p>
+                    <button
+                      className="btn btn-sm btn-outline-secondary"
+                      onClick={() => {
+                            setExpandedFolders(prev => ({
+                              ...prev,
+                              [selectedFolderId]: false
+                            }));
+                            setSelectedFolderId(null);
+                            setSelectedFolderName("");
+                          }}
+                    >
+                      ⬅ Back to Root
+                    </button>
+                  </div>
+                )}
+                <ul className="p-0">
+                  {uploadedContent.map((item) => (
+                    <li key={item.fileId} >
+                      <div className="content-item">
+                        <div>
+                          <span
+                            className="icon"
+                            style={{ cursor: item.label === "Folder" ? "pointer" : "default" }}
+                            onClick={() =>
+                              item.label === "Folder" && toggleFolder(item.fileId, item.fileName)
+                            }
+                          >
+                            {item.label === "Folder"
+                              ? "📁"
+                              : contentTypes.find(ct => ct.label === item.label)?.icon}
+                          </span>{" "}
+                          {item.fileName} (Type: {item.label})
                         </div>
-                      )}
-                    </div>
-
-                    {/* Folder Content */}
-                    {item.label === "Folder" && expandedFolders[item.fileId] && (
-                      <div className="folder-contents ps-4">
-                        <ul>
-                          {item.children?.map((child) => (
-                            <li key={child.fileId}>
-                              <span className="icon">
-                                {contentTypes.find(ct => ct.label === child.label)?.icon}
-                              </span>{" "}
-                              {child.fileName} (Type: {child.label})
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="folder-upload-options">
-                          {contentTypes.map((ct) => (
-                            <div key={ct.label} className="small-upload">
-                              <span
-                                className="icon"
-                                onClick={() =>
-                                  fileInputs.current[`${ct.label}_${item.fileId}`]?.click()
-                                }
-                                style={{ cursor: "pointer" }}
-                              >
-                                {ct.icon}
-                              </span>{" "}
-                              <input
-                                type="file"
-                                ref={(el) => (fileInputs.current[`${ct.label}_${item.fileId}`] = el)}
-                                accept={ct.accept}
-                                style={{ display: "none" }}
-                                onChange={(e) => handleFileUpload(ct.label, e, item.fileId)}
-                              />
+                        <div className="dropdown">
+                          <button
+                            className="dots-menu"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleDropdown(item.fileId);
+                            }}
+                          >
+                            ⋮
+                          </button>
+                          {activeDropdown === item.fileId && (
+                            <div className="dropdown-content">
+                              <button onClick={() => handleEdit(item.fileId)}>Edit</button>
+                              <button onClick={() => handleDelete(item.fileId)}>Delete</button>
                             </div>
-                          ))}
+                          )}
                         </div>
                       </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
+
+
+                      {/* Folder Content */}
+                      {item.label === "Folder" && expandedFolders[item.fileId] && (
+                        <div className="folder-contents ps-4">
+                          <p>Inside folder: <strong>{item.fileName}</strong></p>
+                          {/* Show uploaded files inside folder */}
+                          <ul className="nested-content-list">
+                            {(item.children || []).map(child => (
+                              <li key={child.fileId}>
+                                {contentTypes.find(ct => ct.label === child.label)?.icon}{" "}
+                                <p>{child.fileName}</p> 
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </div>
         </div>
@@ -205,7 +251,7 @@ export default function CourseContent({ onBack, onNext }) {
             )}
 
             {contentTypes.map((item) => (
-              <li key={item.label} onClick={() => handleOptionClick(item.label)}>
+              <li key={item.label} onClick={() => handleOptionClick(item.label, selectedFolderId)}>
                 <span className="icon">{item.icon}</span> {item.label}
                 <input
                   type="file"
@@ -220,7 +266,7 @@ export default function CourseContent({ onBack, onNext }) {
         </div>
       </div>
 
-      <div className="input-button-wrapper d-flex justify-content-between me-4 mt-5 ">
+      <div className="input-button-wrapper d-flex justify-content-between me-4 mt-5">
         <button onClick={onBack}><BackIcon />Previous</button>
         <button type="button" onClick={onNext}>Publish<EastIcon /></button>
       </div>

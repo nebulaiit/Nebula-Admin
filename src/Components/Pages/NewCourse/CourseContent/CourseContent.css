@@ -35,7 +35,9 @@
     border-bottom: 1px solid #444;
     padding-bottom: 8px;
   }
-  
+   .file-manager .uploaded-content ul li {
+    list-style: none;
+   }
   /* Uploaded Content Items */
   .file-manager .uploaded-content .content-item {
     display: flex;
@@ -43,7 +45,9 @@
     align-items: center;
     margin: 10px 0;
     background-color: #353535;
-    padding: 7px;
+    padding:10px;
+    border-radius: 15px;
+
   }
   
   /* Icon inside uploaded content or add list */
@@ -96,7 +100,26 @@
   .file-manager .dropdown-content button:hover {
     background-color: #454545;
   }
-  
+
+    .file-manager .uploaded-content ul li .folder-contents{
+      background-color:#353535;
+      height: auto;
+      padding: 10px 0;
+      border-radius: 15px;
+    }
+
+  .file-manager .uploaded-content ul li .folder-contents .nested-content-list li{
+    display: flex;
+    justify-content: start;
+    width: 70%;
+    margin: 10px 0;
+  }
+
+
+   .file-manager .uploaded-content ul li .folder-contents .nested-content-list li p{
+    font-size: 16px;
+    margin-left: 5px;
+   }
   /* ===========================
      Add Content Section (Right) 
   =========================== */
