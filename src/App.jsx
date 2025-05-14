@@ -18,6 +18,7 @@ import WebsiteManager from './Components/Pages/WebsiteManager/WebsiteManager'
 import EditContent from './Components/Pages/Edit Content/EditContent'
 
 
+
 function App() {
   
 
@@ -39,6 +40,8 @@ function App() {
           <Route path='/reset-password' element={<ResetPassword/>}/>
           <Route path='/NewPassword' element={<NewPassword/>}/>
           <Route path='/website-pages' element={<WebsiteManager/>}/>
+
+
       </Routes>
      </BrowserRouter>
     </>
