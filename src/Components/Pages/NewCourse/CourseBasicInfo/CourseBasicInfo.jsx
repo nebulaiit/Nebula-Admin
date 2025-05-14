@@ -5,7 +5,7 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import BackIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
 
-export default function CourseBasicInfo({ onNext }) {
+export default function CourseBasicInfo({onBack,onNext,data ={}}) {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -20,10 +20,12 @@ export default function CourseBasicInfo({ onNext }) {
           <div className="course-content-form1 mt-4">
             <form>
               <h5>Course Name</h5>
-              <input type="text" placeholder='Enter the course name'/>
+              <input type="text" placeholder='Enter the course name'   value={data.name}
+          onChange={(e) => onChange("name", e.target.value)}/>
               
               <h5>Description</h5>
-              <textarea name="" id=""  placeholder='Enter the course description here'></textarea>
+              <textarea name="" id=""  placeholder='Enter the course description here' value={data.description}
+          onChange={(e) => onChange("description", e.target.value)}></textarea>
               
               <div className="thumbnail-upload-container">
                 <h5 className=" ms-0 mb-2">Add Thumbnail</h5>
@@ -42,7 +44,7 @@ export default function CourseBasicInfo({ onNext }) {
               <p className="ms-4 my-4"> <LightbulbIcon className='bulb-icon'/> Recommended Image Size: 800px x 600px, PNG or JPEG file</p>
             
               <div className="input-button-wrapper d-flex justify-content-between mx-3 ">
-                <button><BackIcon/>Previous</button>
+                <button type="button" onClick={onBack}><BackIcon/>Previous</button>
                 <button type="button" onClick={onNext}>  Edit Price <EastIcon /></button>
               </div>
               
