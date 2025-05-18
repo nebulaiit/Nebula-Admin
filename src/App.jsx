@@ -16,6 +16,11 @@ import ResetPassword from './Components/Login/ResetPassword'
 import NewPassword from './Components/Login/NewPassw'
 import WebsiteManager from './Components/Pages/WebsiteManager/WebsiteManager'
 import EditContent from './Components/Pages/Edit Content/EditContent'
+import CourseCard from './Components/Pages/EditCourse/EditCourse'
+import CourseDetail from './Components/Pages/EditCourse/CourseDetail'
+import EditCourse from './Components/Pages/EditCourse/EditCourse'
+
+
 
 
 
@@ -40,7 +45,10 @@ function App() {
           <Route path='/reset-password' element={<ResetPassword/>}/>
           <Route path='/NewPassword' element={<NewPassword/>}/>
           <Route path='/website-pages' element={<WebsiteManager/>}/>
-
+           <Route path="/edit-course" element={<EditCourse />} />
+        <Route path="/course/python-zero-to-hero" element={<CourseDetail />} />
+      
+            
 
       </Routes>
      </BrowserRouter>

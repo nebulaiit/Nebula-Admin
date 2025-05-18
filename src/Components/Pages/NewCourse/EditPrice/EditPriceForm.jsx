@@ -39,13 +39,13 @@ export default function EditPriceForm({ onBack, onNext }) {
             <div className="price-box disabled">₹ 1.03</div>
         </div>
         </div>
-
+</div>
      
         <div className="input-button-wrapper d-flex justify-content-between me-4 mt-5 ">
             <button onClick={onBack}><BackIcon/>Previous</button>
             <button type="button" onClick={onNext}>Add Content<EastIcon /></button>
         </div>
-    </div>
+   
     </>
   )
 }

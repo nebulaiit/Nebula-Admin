@@ -1,0 +1,51 @@
+ .course-edit-wrapper{
+ width: 78%;
+    position: absolute;
+    left: 20%;
+    top: 12%;
+    height: 100vh;
+    /* border: 1px solid rgba(255, 255, 255, 0.312); */
+ }
+ .course-edit-wrapper .course-edit{
+    width: 300px;
+    height: 400px;
+    background-color: #1c1c1c;
+    margin-top: 30px;
+    border-radius: 15px;
+       
+}
+
+ .course-edit-wrapper .course-edit .course-img-wrapper{
+    width: 300px;
+    height: 200px;
+    
+}
+
+
+ .course-edit-wrapper .course-edit .course-img-wrapper img{
+    width: 100%;
+    height: 100%;
+    border-radius: 15px 15px 0 0;
+
+}
+
+ .course-edit-wrapper  .course-edit .course-info-edit .edit-title{
+    font-size: 18px;
+    padding: 10px;
+    color: #ffffffc8;
+    margin: 0;
+
+}
+ .course-edit-wrapper .course-edit .course-info-edit .edit-creation{
+    font-size: 14px;
+    padding: 10px;
+    color: #ffffffc8;
+    margin: 0;
+}
+   .course-edit-wrapper .course-edit .course-info-edit .edit-price-card{
+    font-size: 22px;
+    padding: 10px;
+    color: #ffffff;
+    margin: 0;
+
+}
