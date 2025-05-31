@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import './CourseDetail.css'; 
 import BackIcon from '@mui/icons-material/KeyboardBackspace';
+import { useNavigate } from 'react-router-dom';
 
 const CourseDetail = ({ onBack }) => {
   const [showDropdown, setShowDropdown] = useState(false);
-
+  const navigate = useNavigate();
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
+  const handleClick = () =>{
+    navigate('/add-course');
+  }
   return (
     <div className="course-detail-container">
       <div className="left-section">
@@ -46,7 +50,7 @@ const CourseDetail = ({ onBack }) => {
             {showDropdown && (
               <div className="dropdown">
                 <ul>
-                  <li>✏️ Edit</li>
+                  <li onClick={handleClick}>✏️ Edit</li>
                   <li>🗑️ Delete</li>
                   <li>🚫 Unpublish</li>
                   <li>🔗 Share</li>

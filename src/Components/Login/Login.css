@@ -128,3 +128,52 @@ label {
     height: auto;
     object-fit: contain;
 }
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .login-box {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .left-section-login,
+    .right-section-login {
+        width: 100%;
+    }
+
+    .left-section-login {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .right-section-login {
+        display: none; /* Hide image on tablets and below */
+    }
+
+    .login-box {
+        box-shadow: none;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 26px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .left-section-login {
+        padding: 20px;
+    }
+
+    .input-group input {
+        font-size: 14px;
+    }
+
+    .login-btn {
+        font-size: 16px;
+    }
+}
