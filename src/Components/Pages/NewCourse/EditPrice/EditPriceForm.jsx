@@ -1,65 +1,111 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCoursePrice } from '../../../Store/courseSlice';
 import BackIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
 import './EditPrice.css';
 
-export default function EditPriceForm({ onBack, onNext, data = {}, onChange }) {
+export default function EditPriceForm({ onBack, onNext }) {
+  const dispatch = useDispatch();
+  const coursePrice = useSelector(state => state.course.coursePrice);
+
+  const [form, setForm] = useState({ ...coursePrice });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: ['price', 'discount', 'duration'].includes(name) ? Number(value) : value
+    }));
+  };
+
+  const handleSubmit = () => {
+    dispatch(setCoursePrice(form));
+    onNext();
+  };
+
   return (
-    <div className="edit-price-form mt-4 ms-4">
-      <p>Course Duration Type</p>
-      <select className='validity' value={data.durationType} onChange={(e) => onChange("durationType", e.target.value)}>
-        <option>Single Validity</option>
-        <option>Multiple Validity</option>
-        <option>Lifetime Validity</option>
-      </select>
+    <div className="edit-price-form mt-4 px-4">
+      <h4>Edit Price</h4>
 
-      <p className="text-light mt-3 ms-2 small">
-        Course will expire after a fixed period of time for all students based on their purchase date.
-      </p>
+      <div className='d-flex align-items-center justify-content-between mt-3'>
+        <div className="price-card">
+          <label>Price (₹)</label>
+          <div className="price-box">
+            <input
+              type="text"
+              name="price"
+              value={form.price}
+              onChange={handleChange}
+              placeholder="Enter course price"
+            />
+          </div>
+        </div>
+        <div className="price-card mt-3">
+          <label>Discount (₹)</label>
+          <div className="price-box">
+            <input
+              type="text"
+              name="discount"
+              value={form.discount}
+              onChange={handleChange}
+              placeholder="Enter discount amount"
+            />
+          </div>
+        </div>
+      </div>
 
-      <div className="d-flex year-card gap-3 my-4">
-        <input
-          type="number"
-          placeholder="1"
-          value={data.durationValue}
-          onChange={(e) => onChange("durationValue", +e.target.value)}
-        />
-        <select className='period' value={data.durationUnit} onChange={(e) => onChange("durationUnit", e.target.value)}>
-          <option>Year</option>
-          <option>Month</option>
+      <div className="year-card mt-4">
+        <label>Validity Type</label>
+        <select
+          name="validityType"
+          className="validity"
+          value={form.validityType}
+          onChange={handleChange}
+        >
+          <option value="">--Select--</option>
+          <option value="Lifetime">Lifetime</option>
+          <option value="Limited">Limited</option>
         </select>
       </div>
 
-      <div className="d-flex price-card gap-3 my-4">
-        <div>
-          <label>Price</label>
-          <div className="price-box">
-            <input
-              type="number"
-              value={data.price}
-              onChange={(e) => onChange("price", +e.target.value)}
-            />
+      {form.validityType === 'Limited' && (
+        <div className="duration-card mt-3">
+          <div className='d-flex justify-content-between align-items-center'>
+            <div className='input-card'>
+              <label>Duration</label>
+              <input
+                type="number"
+                name="duration"
+                value={form.duration}
+                onChange={handleChange}
+                placeholder="Enter duration"
+              />
+            </div>
+            <div className='input-card'>
+              <label >Duration Unit</label>
+              <select
+                name="durationUnit"
+                className="period"
+                value={form.durationUnit}
+                onChange={handleChange}
+              >
+                <option value="">--Select--</option>
+                <option value="Days">Days</option>
+                <option value="Months">Months</option>
+              </select>
+            </div>
           </div>
         </div>
-        <div>
-          <label>Discount</label>
-          <div className="price-box">
-            <input
-              type="number"
-              value={data.discount}
-              onChange={(e) => onChange("discount", +e.target.value)}
-            />
-          </div>
-        </div>
-        <div>
-          <label>Effective Price</label>
-          <div className="price-box disabled">₹ {Math.max(0, data.price - data.discount).toFixed(2)}</div>
-        </div>
-      </div>
+      )}
 
-      <div className="input-button-wrapper d-flex justify-content-between me-4 mt-5">
-        <button onClick={onBack}><BackIcon />Previous</button>
-        <button type="button" onClick={onNext}>Add Content<EastIcon /></button>
+      <div className="input-button-wrapper d-flex justify-content-between mt-5">
+        <button type="button" onClick={onBack}>
+          <BackIcon /> Previous
+        </button>
+        <button type="button" onClick={handleSubmit}>
+          Add Content <EastIcon />
+        </button>
       </div>
     </div>
   );

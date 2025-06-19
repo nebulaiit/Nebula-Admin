@@ -2,8 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import './CourseContent.css';
 import BackIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCourseFolders } from '../../../Store/courseSlice';
 
 export default function CourseContent({ onBack, onNext }) {
+
+
+  const dispatch = useDispatch();
+  const savedContent = useSelector(state => state.course.courseFolders);
   const [uploadedContent, setUploadedContent] = useState([]);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [expandedFolders, setExpandedFolders] = useState({});
@@ -38,6 +44,12 @@ export default function CourseContent({ onBack, onNext }) {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+
+    useEffect(() => {
+    dispatch(setCourseFolders(uploadedContent));
+  }, [uploadedContent, dispatch]);
+
 
   const handleCreateFolder = () => {
     if (newFolderName.trim() === "") return;
@@ -272,4 +284,4 @@ export default function CourseContent({ onBack, onNext }) {
       </div>
     </div>
   );
-}
+}  

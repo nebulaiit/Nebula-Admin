@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './AddCourse.css';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import BackIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
+import { useDispatch } from 'react-redux';
+import { setBasicInfo } from '../../../Store/courseSlice'; // ✅ Adjust the path as per your folder structure
 
-export default function CourseBasicInfo({ onBack, onNext, data = {}, onChange }) {
+export default function CourseBasicInfo({ onBack, onNext }) {
+  const dispatch = useDispatch();
+
+  const [localData, setLocalData] = useState({
+    title: '',
+    description: '',
+    thumbnail: null
+  });
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      onChange("thumbnail", file);
+      setLocalData((prev) => ({
+        ...prev,
+        thumbnail: file
+      }));
     }
+  };
+
+  const handleSubmit = () => {
+    dispatch(setBasicInfo(localData));
+    onNext();
   };
 
   return (
@@ -19,16 +37,20 @@ export default function CourseBasicInfo({ onBack, onNext, data = {}, onChange })
         <h5>Course Name</h5>
         <input
           type="text"
-          placeholder='Enter the course name'
-          value={data.name}
-          onChange={(e) => onChange("name", e.target.value)}
+          placeholder="Enter the course name"
+          value={localData.title}
+          onChange={(e) =>
+            setLocalData({ ...localData, title: e.target.value })
+          }
         />
 
         <h5>Description</h5>
         <textarea
-          placeholder='Enter the course description here'
-          value={data.description}
-          onChange={(e) => onChange("description", e.target.value)}
+          placeholder="Enter the course description here"
+          value={localData.description}
+          onChange={(e) =>
+            setLocalData({ ...localData, description: e.target.value })
+          }
         ></textarea>
 
         <div className="thumbnail-upload-container">
@@ -46,13 +68,17 @@ export default function CourseBasicInfo({ onBack, onNext, data = {}, onChange })
         </div>
 
         <p className="ms-4 my-4">
-          <LightbulbIcon className='bulb-icon' />
+          <LightbulbIcon className="bulb-icon" />
           Recommended Image Size: 800px x 600px, PNG or JPEG file
         </p>
 
         <div className="input-button-wrapper d-flex justify-content-between mx-3">
-          <button type="button" onClick={onBack}><BackIcon />Previous</button>
-          <button type="button" onClick={onNext}>Edit Price <EastIcon /></button>
+          <button type="button" onClick={onBack}>
+            <BackIcon /> Previous
+          </button>
+          <button type="button" onClick={handleSubmit}>
+            Edit Price <EastIcon />
+          </button>
         </div>
       </form>
     </div>

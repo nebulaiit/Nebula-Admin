@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './CourseDetail.css'; 
 import BackIcon from '@mui/icons-material/KeyboardBackspace';
 import { useNavigate } from 'react-router-dom';
+import courseImg from '../../../Images/Thumbnail/python.png'; // Adjust the path as needed
 
 const CourseDetail = ({ onBack }) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -19,7 +20,7 @@ const CourseDetail = ({ onBack }) => {
         <p className="course-title">Complete Python Programming: Zero To Hero</p>
 
         <h3>Description</h3>
-        <p><strong>Course Description:</strong><br />
+        <p>
         Unlock the power of programming with our comprehensive Python Programming Fundamentals course! Whether you're a complete beginner or looking to refresh your coding skills, this course is designed to provide you with a strong foundation in Python programming. Python is one of the most versatile and widely used programming languages in the world, known for its simplicity and readability.</p>
 
         <h4>Course Highlights:</h4>
@@ -38,7 +39,7 @@ const CourseDetail = ({ onBack }) => {
     
 
       <div className="right-section">
-        <img className="banner-img" src="/images/python-banner.jpg" alt="Course" />
+        <img className="banner-img" src={courseImg} alt="Course" />
         <div className="likes"><i className="fa fa-thumbs-up"></i> 0 likes</div>
         <div className="sidebar-options">
           <div className="option">📁 Content</div>
@@ -53,9 +54,7 @@ const CourseDetail = ({ onBack }) => {
                   <li onClick={handleClick}>✏️ Edit</li>
                   <li>🗑️ Delete</li>
                   <li>🚫 Unpublish</li>
-                  <li>🔗 Share</li>
-                  <li>❌ Remove from featured</li>
-                  <li>⚙️ Advanced Settings</li>
+                 
                 </ul>
               </div>
             )}

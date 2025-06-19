@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 import CourseBasicInfo from './CourseBasicInfo/CourseBasicInfo';
 import EditPriceForm from './EditPrice/EditPriceForm';
 import CourseContent from './CourseContent/CourseContent';
@@ -7,10 +8,10 @@ import Publish from './Publish/Publish';
 export default function CourseFormContainer() {
 
     const [activeStep, setActiveStep] = useState(1); // 1 = Basic Info, 2 = Edit Price, 3 = Add Content
+    const courseData = useSelector(state => state.course);
 
   return (
     <>
-   
 
     <div className="AddCourse-wrapper">
         <div className="course-info-card ">

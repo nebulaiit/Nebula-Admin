@@ -1,55 +1,104 @@
 .publish-wrapper {
-  /* max-width: 900px; */
-  /* margin: 2rem auto; */
-  padding: 2rem;
+  padding: 2.5rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  font-family: sans-serif;
+  background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #f0f0f0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  /* min-height: 80vh; */
-  /* background: #1e1e1e; */
-  color: white;
-  justify-content: space-between;
+  gap: 3rem;
 }
 
 .publish-content {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 2rem;
+  align-items: flex-start;
 }
 
 .publish-left {
   flex: 1;
+  min-width: 300px;
+}
+
+.publish-left h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #00bfff;
+  border-bottom: 2px solid #444;
+  padding-bottom: 0.5rem;
+}
+
+.publish-left p {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.publish-left strong {
+  color: #ffd700;
+  font-size: 20px;
 }
 
 .publish-right {
   flex: 1;
   text-align: right;
+  min-width: 250px;
 }
 
-.publish-right img {
-  max-width: 200px;
-  border-radius: 10px;
+.publish-right img.thumbnail-preview {
+  max-width: 220px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   margin-bottom: 1rem;
+}
+
+.publish-right h4 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  color: #90ee90;
 }
 
 .Publish-button-wrapper {
   display: flex;
   justify-content: space-between;
-  margin-top: 10rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  gap: 1rem;
 }
 
 .Publish-button-wrapper button {
-  border-radius: 15px;
-  padding:15px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: transparent;
-  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #2a2a2a;
+  color: #fff;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .Publish-button-wrapper button:hover {
-  background-color: #333;
+  background: #00bfff;
+  color: #000;
+  border-color: #00bfff;
+}
+
+@media (max-width: 768px) {
+  .publish-content {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .publish-right {
+    text-align: left;
+  }
+
+  .Publish-button-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

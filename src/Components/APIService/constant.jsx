@@ -7,6 +7,7 @@ export const API_URLs = {
     ADD_HEADING:"/api/add-heading",
     GET_ALL_TUTORIAL:"/api/tutorial",
     GET_TUTORIAL_BY_NAME:"/api/tutorial",
+    GET_COURSE_LIST:"/api/courses",
 }
 
 export const API_BASE_URL = "http://localhost:8080";

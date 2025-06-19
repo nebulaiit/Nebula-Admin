@@ -1,53 +1,100 @@
-.edit-price-form .validity{
-    width: 600px;
-    height: 40px;
-    border: none;
-    border-radius: 15px;
-    padding: 0 10px;
+.edit-price-form {
+
+  margin: auto;
 }
 
-.edit-price-form .year-card input{
-    border: none;
-    border-radius: 15px;
-    height: 40px;
-    width: 500px;
-    padding: 0 10px;
-
+.edit-price-form h4 {
+  color: white;
+  margin-bottom: 25px;
 }
 
-.edit-price-form .year-card .period{
-    height: 40px;
-    border: none;
-    border-radius: 15px;
-    padding: 0 10px;
+/* Price Section */
+.edit-price-form .price-card {
+  margin-bottom: 20px;
+  width: 45%;
 }
 
-.edit-price-form .price-card label{
-    margin-bottom: 5px;
-}
-.edit-price-form .price-card .price-box input{
-    border: none;
-    border-radius: 15px;
-    height: 40px;
-    padding: 0 10px;
-    width: 230px;
-
+.edit-price-form .price-card label {
+  display: block;
+  margin-bottom: 8px;
+  color: white;
 }
 
-.edit-price-form .price-card .price-box.disabled{
-    border: 1px solid white;
-    border-radius: 15px;
-    height: 40px;
-    padding: 5px 10px;
-
+.edit-price-form .price-card .price-box input {
+  border: none;
+  border-radius: 15px;
+  height: 40px;
+  padding: 0 10px;
+  width: 100%;
+  background: #2c2c2c;
+  color: white;
 }
 
-.edit-price-form .input-button-wrapper button{
+/* Validity Section */
+.edit-price-form .year-card {
+  margin-top: 20px;
+}
 
-    border-radius: 15px;
-    background: transparent;
-    color: white;
-    padding: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.273);
+.edit-price-form .year-card label {
+  display: block;
+  margin-bottom: 8px;
+  color: white;
+}
 
-  }
+.edit-price-form .validity {
+  width: 45%;
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+  padding: 0 10px;
+  background: #2c2c2c;
+  color: white;
+}
+
+/* Duration & Unit */
+
+.edit-price-form .duration-card{
+    width: 100%;
+}
+
+.edit-price-form .duration-card .input-card{
+    width: 45%;
+}
+.edit-price-form .duration-card label{
+    display: block;
+}
+.edit-price-form .duration-card input {
+  border: none;
+  border-radius: 15px;
+  height: 40px;
+  width: 100%;
+  padding: 0 10px;
+  margin-bottom: 15px;
+  background: #2c2c2c;
+  color: white;
+}
+
+.edit-price-form .duration-card .period {
+  height: 40px;
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  padding: 0 10px;
+  background: #2c2c2c;
+  color: white;
+}
+
+/* Button Section */
+.edit-price-form .input-button-wrapper button {
+  border-radius: 15px;
+  background: transparent;
+  color: white;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.edit-price-form .input-button-wrapper button:hover {
+  background: white;
+  color: black;
+}

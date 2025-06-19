@@ -96,7 +96,7 @@ export const getAllTutorial = async ()=>{
 
 export const getTutorialByName = async (tutorialName)=>{
     const url = `${API_BASE_URL}${API_URLs.GET_TUTORIAL_BY_NAME}/${tutorialName}`;
-    console.log(url)
+
     try {
         const response = await axios.get(url);
         // console.log(response);
@@ -110,7 +110,7 @@ export const getTutorialByName = async (tutorialName)=>{
 
 export const addNewHeading = async (id,token, {tutorialName})=>{
     const url = `${API_BASE_URL}${API_URLs.ADD_TUTORIAL}`;
-    console.log({tutorialName});
+ 
     try {
         const response = await axios.post(url, {tutorialName},
                     { headers: {
@@ -119,6 +119,20 @@ export const addNewHeading = async (id,token, {tutorialName})=>{
                     }
                 });
         console.log(response);
+        return response.data;
+        
+    } catch (error) {
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+} 
+
+export const getAllCourse = async ()=>{
+    const url = `${API_BASE_URL}${API_URLs.GET_COURSE_LIST}`;
+
+    try {
+        const response = await axios.get(url);
+        // console.log(response);
         return response.data;
         
     } catch (error) {
