@@ -46,7 +46,7 @@ function App() {
           <Route path='/NewPassword' element={<NewPassword/>}/>
           <Route path='/website-pages' element={<WebsiteManager/>}/>
            <Route path="/edit-course" element={<EditCourse />} />
-        <Route path="/course/python-zero-to-hero" element={<CourseDetail />} />
+        <Route path="/course/:id" element={<CourseDetail />} />
       
             
 
