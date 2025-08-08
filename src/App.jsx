@@ -7,7 +7,8 @@ import Header from './Components/Header/Header'
 import Dashboard from './Components/Pages/Dashboard/Dashboard'
 import Login from './Components/Login/Login'
 import User from './Components/Pages/User/User'
-import Content from './Components/Pages/NewContent/Content'
+// import Content from './Components/Pages/NewContent/Content'
+import AdminPanel from './Components/Pages/NewTutorial/AdminPanel'
 import NewCourse from './Components/Pages/NewCourse/NewCourse'
 import CourseFormContainer from './Components/Pages/NewCourse/CourseFormContainer'
 import UserList from './Components/Pages/User/UserList/UserList'
@@ -36,7 +37,7 @@ function App() {
           <Route path='/' element={<Login/>}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path='/user-account' element={<User/>}/>
-          <Route path='/add-content' element={<Content/>}/>
+          <Route path='/add-tutorial' element={<AdminPanel/>}/> 
           <Route path='/edit-content' element={<EditContent/>}/>
           <Route path='/Course-list' element={<NewCourse/>}/>
           <Route path='/add-Course' element={<CourseFormContainer/>}/>

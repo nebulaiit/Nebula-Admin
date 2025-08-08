@@ -1,0 +1,53 @@
+.page-form form {
+  background: var(--bg-card);
+  padding: 15px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-light);
+}
+
+.page-form input,
+.page-form select {
+  width: 100%;
+  padding: 10px;
+  background: var(--bg-dark);
+  border: none;
+  border-radius: var(--radius);
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+
+.page-form select {
+  cursor: pointer;
+}
+
+/* Quill Toolbar */
+.page-form .ql-toolbar {
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+}
+
+/* Quill Editor */
+.page-form .ql-container {
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--bg-dark);
+  border: 1px solid var(--border-light);
+  min-height: 200px;
+}
+
+.page-form .ql-editor {
+  color: var(--text-light);
+}
+
+.page-form button {
+  background: var(--warning);
+  color: black;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.page-form button:hover {
+  background: #e0a800;
+}

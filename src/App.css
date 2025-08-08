@@ -1,0 +1,31 @@
+:root {
+  /* Primary Background Colors */
+  --color-bg-dark: #252525; /* Main dark background */
+  --color-bg-light: #f9f9f9; /* Light background for contrast */
+  --color-bg-deep: #0f0f0f;  /* Very dark background used in sections */
+  --color-bg-medium: #1f1f1f; /* Mid-level dark background */
+
+  /* Primary Text Colors */
+  --color-text-primary: #ffffff; /* Main text color */
+  --color-text-secondary: #bcbcbc; /* Less prominent text */
+  --color-text-muted: #999999; /* Muted/disabled text */
+
+  /* Accent Colors */
+  --color-accent-blue: #00bcd4; /* Accent blue for highlights/buttons */
+  --color-accent-green: #4caf50; /* Success/positive actions */
+  --color-accent-yellow: #ffeb3b; /* Warning/attention */
+  --color-accent-red: #f44336;   /* Error/danger highlights */
+  --color-accent-purple: #9c27b0; /* Optional accent color */
+
+  /* Border and Divider Colors */
+  --color-border-light: #3a3a3a; /* Subtle borders on dark background */
+  --color-border-dark: #1a1a1a;  /* Deep border contrast */
+
+  /* Overlay / Shadows */
+  --color-overlay: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+
+  /* Button Colors */
+  --color-btn-bg: #333333;     /* Button background */
+  --color-btn-hover: #444444;  /* Button hover background */
+  --color-btn-text: #ffffff;   /* Button text color */
+}

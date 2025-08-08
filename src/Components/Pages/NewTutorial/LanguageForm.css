@@ -1,0 +1,43 @@
+.language-form form {
+  background: var(--bg-card);
+  padding: 15px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-light);
+}
+
+.language-form input {
+  width: 100%;
+  padding: 10px;
+  background: var(--bg-dark);
+  border: none;
+  border-radius: var(--radius);
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+
+.language-form input::placeholder {
+  color: var(--text-muted);
+}
+
+.language-form button {
+  background: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.language-form button:hover {
+  background: #0b5ed7;
+}
+
+.language-form ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.language-form li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border-light);
+}

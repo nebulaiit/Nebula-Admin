@@ -1,0 +1,34 @@
+.topic-form form {
+  background: var(--bg-card);
+  padding: 15px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-light);
+}
+
+.topic-form select,
+.topic-form input {
+  width: 100%;
+  padding: 10px;
+  background: var(--bg-dark);
+  border: none;
+  border-radius: var(--radius);
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+
+.topic-form select {
+  cursor: pointer;
+}
+
+.topic-form button {
+  background: var(--success);
+  color: white;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.topic-form button:hover {
+  background: #157347;
+}
