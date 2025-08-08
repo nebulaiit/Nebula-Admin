@@ -19,39 +19,39 @@ import EditContent from './Components/Pages/Edit Content/EditContent'
 import CourseCard from './Components/Pages/EditCourse/EditCourse'
 import CourseDetail from './Components/Pages/EditCourse/CourseDetail'
 import EditCourse from './Components/Pages/EditCourse/EditCourse'
-
+import CompanyDashboard from './Components/Pages/JobDashboard/CompanyDashboard.'
 
 
 
 
 function App() {
-  
+
 
   return (
     <>
-     <BrowserRouter>
-      <Header variant="default"/>
+      <BrowserRouter>
+        <Header variant="default" />
 
-      <Routes>
-          <Route path='/' element={<Login/>}/>
-          <Route path='/dashboard' element={<Dashboard/>}/>
-          <Route path='/user-account' element={<User/>}/>
-          <Route path='/add-content' element={<Content/>}/>
-          <Route path='/edit-content' element={<EditContent/>}/>
-          <Route path='/Course-list' element={<NewCourse/>}/>
-          <Route path='/add-Course' element={<CourseFormContainer/>}/>
-          <Route path='/user-list' element={<UserList/>}/>
-          <Route path='/website-analytics' element={<WebAnalytics/>}/>
-          <Route path='/reset-password' element={<ResetPassword/>}/>
-          <Route path='/NewPassword' element={<NewPassword/>}/>
-          <Route path='/website-pages' element={<WebsiteManager/>}/>
-           <Route path="/edit-course" element={<EditCourse />} />
-        <Route path="/course/:id" element={<CourseDetail />} />
-      
-            
+        <Routes>
+          <Route path='/' element={<Login />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/user-account' element={<User />} />
+          <Route path='/add-content' element={<Content />} />
+          <Route path='/edit-content' element={<EditContent />} />
+          <Route path='/Course-list' element={<NewCourse />} />
+          <Route path='/add-Course' element={<CourseFormContainer />} />
+          <Route path='/user-list' element={<UserList />} />
+          <Route path='/website-analytics' element={<WebAnalytics />} />
+          <Route path='/reset-password' element={<ResetPassword />} />
+          <Route path='/NewPassword' element={<NewPassword />} />
+          <Route path='/website-pages' element={<WebsiteManager />} />
+          <Route path="/edit-course" element={<EditCourse />} />
+          <Route path="/job-dashboard" element={<CompanyDashboard />} />
+          <Route path="/course/:id" element={<CourseDetail />} />
 
-      </Routes>
-     </BrowserRouter>
+
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

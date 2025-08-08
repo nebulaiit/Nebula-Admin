@@ -165,6 +165,19 @@ export default function Header({ variant = "default" }) {
                   </div>
                 </div>
 
+                
+                <div className='main-item1 mt-4'>
+                  <h3 className="text-secondary text-uppercase fs-6 fw-bold mt-2">Jobs</h3>
+                  <div className="d-flex align-items-center p-2 cursor-pointer rounded-3">
+                    <PersonOutlineOutlinedIcon className="fs-5 me-3" />
+                    <Link to='/job-dashboard' className="main-title">Job Dashboard</Link>
+                  </div>
+                  <div className="d-flex align-items-center p-2 cursor-pointer rounded-3">
+                    <PersonAddAltOutlinedIcon className="fs-5 me-3" />
+                    <Link to='/user-list' className="main-title">All User</Link>
+                  </div>
+                </div>
+
                 <div className='main-item1 mt-4'>
                   <h3 className="text-secondary text-uppercase fs-6 fw-bold mt-2">Users</h3>
                   <div className="d-flex align-items-center p-2 cursor-pointer rounded-3">
