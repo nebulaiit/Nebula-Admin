@@ -1,12 +1,18 @@
-.container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 20px;
-  background: var(--bg-dark);
+.language-container {
+  width: 78%;
+  position: absolute;
+  left: 20%;
+  top: 8%;
+  padding: 30px;
+  color: #f0f0f0;
+  border-radius: 20px;
+  /* background: var(--bg-dark); */
+  background: linear-gradient(145deg, #121212, #1e1e1e);
+
   color: var(--text-light);
 }
 
-.container h2 {
+.language-container h2 {
   font-weight: 600;
   margin-bottom: 20px;
 }

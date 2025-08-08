@@ -32,13 +32,11 @@ function App() {
     <>
       <BrowserRouter>
         <Header variant="default" />
-
-
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/user-account' element={<User />} />
-          <Route path='/add-content' element={<Content />} />
+          <Route path='/add-tutorial' element={<AdminPanel/>}/> 
           <Route path='/edit-content' element={<EditContent />} />
           <Route path='/Course-list' element={<NewCourse />} />
           <Route path='/add-Course' element={<CourseFormContainer />} />
@@ -50,8 +48,6 @@ function App() {
           <Route path="/edit-course" element={<EditCourse />} />
           <Route path="/job-dashboard" element={<CompanyDashboard />} />
           <Route path="/course/:id" element={<CourseDetail />} />
-
-  
 
         </Routes>
       </BrowserRouter>

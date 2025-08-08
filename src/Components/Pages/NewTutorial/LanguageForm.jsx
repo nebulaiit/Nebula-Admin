@@ -1,48 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import './LanguageForm.css';
+import React, { useState } from "react";
+import axios from "axios";
+import "./LanguageForm.css";
 
-import axios from 'axios';
-
-export default function LanguageForm() {
-  const [name, setName] = useState('');
-  const [languages, setLanguages] = useState([]);
-
-  const fetchLanguages = async () => {
-    const res = await axios.get('/api/languages');
-    setLanguages(res.data);
-  };
-
-  useEffect(() => {
-    fetchLanguages();
-  }, []);
+export default function LanguageForm(){
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('/api/languages', {
-      name,
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
-    });
-    setName('');
-    fetchLanguages();
+
+    console.log(name);
+
+    // try {
+    //   const response = await axios.post("http://localhost:8080/api/language", {
+    //     name,
+    //   });
+
+    //   if (response.data.code === 201) {
+    //     setMessage("Language created successfully!");
+    //     setError("");
+    //     setName("");
+    //   }
+    // } catch (err) {
+    //   if (err.response?.status === 409) {
+    //     setError("Language already exists.");
+    //   } else {
+    //     setError("Something went wrong.");
+    //   }
+    //   setMessage("");
+    // }
   };
 
   return (
-    <div>
-      <h4>Add Language</h4>
-      <form onSubmit={handleSubmit} className="mb-3">
+    <div className="language-form-container">
+      <h2 className="form-title">Add New Language</h2>
+
+      <form onSubmit={handleSubmit} className="language-form">
+        <label htmlFor="languageName" className="form-label">
+          Language Name
+        </label>
         <input
+          type="text"
+          id="languageName"
+          className="form-input"
+          placeholder="Enter language name (e.g., HTML, Java)"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="e.g. Java"
-          className="form-control mb-2"
+          required
         />
-        <button className="btn btn-primary">Add Language</button>
+
+        <button type="submit" className="form-button">
+          Add Language
+        </button>
+
+        {message && <p className="success-msg">{message}</p>}
+        {error && <p className="error-msg">{error}</p>}
       </form>
-      <ul>
-        {languages.map((lang) => (
-          <li key={lang.id}>{lang.name}</li>
-        ))}
-      </ul>
     </div>
   );
-}
+};
+
+
+
+"http://localhost:8080/api/topic/{id}" 

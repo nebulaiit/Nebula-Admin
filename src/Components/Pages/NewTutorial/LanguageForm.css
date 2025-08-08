@@ -1,43 +1,66 @@
-.language-form form {
-  background: var(--bg-card);
-  padding: 15px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-light);
+.language-form-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #f4f4f4;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.language-form input {
-  width: 100%;
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.language-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+}
+
+.form-input {
   padding: 10px;
-  background: var(--bg-dark);
-  border: none;
-  border-radius: var(--radius);
-  color: var(--text-light);
-  margin-bottom: 10px;
+  font-size: 16px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  outline: none;
+  transition: border-color 0.3s;
 }
 
-.language-form input::placeholder {
-  color: var(--text-muted);
+.form-input:focus {
+  border-color: #007bff;
 }
 
-.language-form button {
-  background: var(--primary);
+.form-button {
+  padding: 10px 15px;
+  background-color: #007bff;
   color: white;
-  padding: 10px 20px;
-  border-radius: var(--radius);
+  font-size: 16px;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
-  transition: var(--transition);
-}
-.language-form button:hover {
-  background: #0b5ed7;
+  transition: background-color 0.3s;
 }
 
-.language-form ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.form-button:hover {
+  background-color: #0056b3;
 }
-.language-form li {
-  padding: 6px 0;
-  border-bottom: 1px solid var(--border-light);
+
+.success-msg {
+  margin-top: 15px;
+  color: green;
+  font-weight: 500;
+}
+
+.error-msg {
+  margin-top: 15px;
+  color: red;
+  font-weight: 500;
 }

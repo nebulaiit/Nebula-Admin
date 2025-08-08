@@ -1,55 +1,77 @@
 import React, { useState, useEffect } from 'react';
-import './TopicForm.css';
 import axios from 'axios';
+import './TopicForm.css'
 
-export default function TopicForm() {
-  const [name, setName] = useState('');
-  const [languageId, setLanguageId] = useState('');
+
+// [
+//   {
+//     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+//     "name": "string",
+//     "slug": "string"
+//   }
+// ]
+
+const TopicForm = () => {
   const [languages, setLanguages] = useState([]);
+  const [languageId, setLanguageId] = useState('3fa85f64-5717-4562-b3fc-2c963f66afa6');
+  const [topicName, setTopicName] = useState('');
+  const [message, setMessage] = useState('');
 
-  const fetchLanguages = async () => {
-    const res = await axios.get('/api/languages');
-    setLanguages(res.data);
-  };
+  useEffect(() => {
+    // const getLanguages = async () => {
+    //   try {
+    //     const langs = await fetchLanguages();
+    //     setLanguages(langs);
+    //   } catch (err) {
+    //     setMessage('Failed to load languages');
+    //   }
+    // };
+    // getLanguages();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('/api/topics', {
-      name,
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
-      language: { id: languageId },
-    });
-    setName('');
+
+
+    if (!languageId || !topicName) return setMessage('Fill all fields');
+
+    console.log(languageId)
+    console.log(topicName)
+
+    // try {
+    //   await createTopic({ name: topicName, languageId });
+    //   setMessage('Topic created successfully!');
+    //   setTopicName('');
+    // } catch (err) {
+    //   setMessage('Error creating topic');
+    // }
   };
 
-  useEffect(() => {
-    fetchLanguages();
-  }, []);
-
   return (
-    <div>
+    <div className="container mt-5">
       <h4>Add Topic</h4>
-      <form onSubmit={handleSubmit} className="mb-3">
-        <select
-          className="form-select mb-2"
-          value={languageId}
-          onChange={(e) => setLanguageId(e.target.value)}
-        >
-          <option>Select Language</option>
-          {languages.map((lang) => (
-            <option key={lang.id} value={lang.id}>
-              {lang.name}
-            </option>
+      <form onSubmit={handleSubmit}>
+        <select className="form-select mb-3" value={languageId} onChange={e => setLanguageId(e.target.value)}>
+          <option value="">Select Language</option>
+          {languages.map(l => (
+            <option key={l.id} value={l.id}>{l.name}</option>
           ))}
         </select>
+
         <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="e.g. OOP Concepts"
-          className="form-control mb-2"
+          type="text"
+          className="form-control mb-3"
+          placeholder="Topic Name"
+          value={topicName}
+          onChange={e => setTopicName(e.target.value)}
         />
-        <button className="btn btn-success">Add Topic</button>
+
+        <button className="btn btn-primary">Create Topic</button>
+
+        {message && <div className="alert alert-info mt-3">{message}</div>}
       </form>
     </div>
   );
-}
+};
+
+export default TopicForm;

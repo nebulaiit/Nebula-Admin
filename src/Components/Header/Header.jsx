@@ -67,7 +67,7 @@ export default function Header({ variant = "default" }) {
             ☰
           </button>
 
-          <div className="container header">
+          <div className="header">
             <div className="search-box">
               <input type="text" placeholder="Search for Employee..." />
               <span><SearchIcon className="search-icon" /></span>
@@ -119,7 +119,7 @@ export default function Header({ variant = "default" }) {
           {/* Sidebar */}
           <ClickAwayListener onClickAway={() => setSidebarOpen(false)}>
             <div className={`sidebar-wrapper ${sidebarOpen ? 'open' : ''}`}>
-              <div className={`container sidebar ${sidebarOpen ? 'active' : ''}`}>
+              <div className={` sidebar ${sidebarOpen ? 'active' : ''}`}>
                 <img src={logo} alt="logo" />
                 <h1 className="text-uppercase ">Nebula</h1>
 
@@ -145,7 +145,7 @@ export default function Header({ variant = "default" }) {
                   <h3 className="text-secondary text-uppercase fs-6 fw-bold mt-2">Content</h3>
                   <div className="d-flex align-items-center p-2 cursor-pointer rounded-3">
                     <AddCircleOutlineOutlinedIcon className="fs-5 me-3" />
-                    <Link to='/adminpanel' className="main-title">AdminPanel</Link>
+                    <Link to='/add-tutorial' className="main-title">Add Tutorial</Link>
                   </div>
                   <div className="d-flex align-items-center p-2 cursor-pointer rounded-3">
                     <DriveFileRenameOutlineOutlinedIcon className="fs-5 me-3" />
