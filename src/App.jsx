@@ -7,7 +7,8 @@ import Header from './Components/Header/Header'
 import Dashboard from './Components/Pages/Dashboard/Dashboard'
 import Login from './Components/Login/Login'
 import User from './Components/Pages/User/User'
-import Content from './Components/Pages/NewContent/Content'
+// import Content from './Components/Pages/NewContent/Content'
+import AdminPanel from './Components/Pages/NewTutorial/AdminPanel'
 import NewCourse from './Components/Pages/NewCourse/NewCourse'
 import CourseFormContainer from './Components/Pages/NewCourse/CourseFormContainer'
 import UserList from './Components/Pages/User/UserList/UserList'
@@ -32,6 +33,7 @@ function App() {
       <BrowserRouter>
         <Header variant="default" />
 
+
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/dashboard' element={<Dashboard />} />
@@ -49,6 +51,7 @@ function App() {
           <Route path="/job-dashboard" element={<CompanyDashboard />} />
           <Route path="/course/:id" element={<CourseDetail />} />
 
+  
 
         </Routes>
       </BrowserRouter>

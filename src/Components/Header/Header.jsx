@@ -145,7 +145,7 @@ export default function Header({ variant = "default" }) {
                   <h3 className="text-secondary text-uppercase fs-6 fw-bold mt-2">Content</h3>
                   <div className="d-flex align-items-center p-2 cursor-pointer rounded-3">
                     <AddCircleOutlineOutlinedIcon className="fs-5 me-3" />
-                    <Link to='/add-content' className="main-title">Add Content</Link>
+                    <Link to='/adminpanel' className="main-title">AdminPanel</Link>
                   </div>
                   <div className="d-flex align-items-center p-2 cursor-pointer rounded-3">
                     <DriveFileRenameOutlineOutlinedIcon className="fs-5 me-3" />
