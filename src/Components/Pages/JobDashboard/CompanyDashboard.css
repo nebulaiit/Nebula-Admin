@@ -1,4 +1,4 @@
-/* Base Styling */
+/* ------------------ Base Styling ------------------ */
 .company-dashboard {
   width: 78%;
   position: absolute;
@@ -11,18 +11,16 @@
   border-radius: 20px;
 }
 
-/* Section spacing */
 .company-dashboard .section {
   margin-top: 40px;
 }
 
-/* Headings */
 .company-dashboard .section h3 {
   color: #ffffff;
   margin-bottom: 20px;
 }
 
-/* Table Styling */
+/* ------------------ Table Styling ------------------ */
 .company-dashboard .section table {
   width: 100%;
   border-collapse: collapse;
@@ -34,7 +32,7 @@
 }
 
 .company-dashboard .section table th,
-td {
+.company-dashboard .section table td {
   padding: 14px 16px;
   border-bottom: 1px solid #333;
   text-align: left;
@@ -50,7 +48,27 @@ td {
   color: #eaeaea;
 }
 
-/* Buttons */
+/* --- Job Listing Enhancements --- */
+.company-dashboard .section table td.job-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #00e0ff;
+  text-shadow: 0 0 5px rgba(0, 224, 255, 0.4);
+}
+
+.company-dashboard .section table td.job-location {
+  font-size: 0.95rem;
+  color: #9be2ff;
+  font-style: italic;
+}
+
+.company-dashboard .section table td.job-date {
+  font-size: 0.9rem;
+  color: #ffd27f;
+  font-weight: 500;
+}
+
+/* ------------------ Table Buttons ------------------ */
 .company-dashboard .section table td button {
   padding: 8px 18px;
   border: none;
@@ -69,15 +87,15 @@ button:hover {
 }
 
 button.secondary {
-  background: #555;
+  background: #d80b0b;
   box-shadow: none;
 }
 
 button.secondary:hover {
-  background: #777;
+  background: #99290d;
 }
 
-/* Status labels */
+/* ------------------ Status Labels ------------------ */
 .status.pending {
   color: #f5a623;
   font-weight: 600;
@@ -88,7 +106,7 @@ button.secondary:hover {
   font-weight: 600;
 }
 
-/* Modal Styling */
+/* ------------------ Modal Overlay ------------------ */
 .modal-overlay {
   width: 83%;
   height: 100vh;
@@ -102,20 +120,45 @@ button.secondary:hover {
   z-index: 999;
 }
 
-.modal-overlay  .modal-box {
+/* ------------------ Modal Box ------------------ */
+.modal-box {
   background: #1e1e1e;
   padding: 30px;
   border-radius: 12px;
   width: 80%;
-  height: 70vh;
+  max-width: 500px;
   color: #fff;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  animation: slideIn 0.3s ease-in-out;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-y: auto;
+  max-height: 90vh;
 }
 
-.modal-overlay  .modal-box  h2 {
-  display: block;
-  margin: 15px 0;
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-box h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
   color: #00e0ff;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+}
+
+.modal-box p {
+  margin: 10px 0;
+  color: #ccc;
+  line-height: 1.5;
 }
 
 .modal-box input {
@@ -128,14 +171,110 @@ button.secondary:hover {
   color: #fff;
 }
 
+/* ------------------ Download Resume Button ------------------ */
+.download-resume-btn {
+  display: inline-block;
+  margin: 15px 0;
+  background-color: #00bcd4;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 0 12px rgba(0, 188, 212, 0.3);
+}
+
+.download-resume-btn:hover {
+  background-color: #0097a7;
+  transform: scale(1.05);
+  box-shadow: 0 0 16px rgba(0, 188, 212, 0.5);
+}
+
+/* ------------------ Modal Action Buttons ------------------ */
 .modal-actions {
   margin-top: 25px;
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
-/* RESPONSIVE DESIGN */
+/* --- Save & Cancel Buttons Modern Style --- */
+.modal-actions .btn-save {
+  background: linear-gradient(135deg, #00b09b, #96c93d);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 224, 255, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+.modal-actions .btn-save:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 224, 255, 0.5);
+}
+
+.modal-actions .btn-cancel {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+.modal-actions .btn-cancel:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 18px rgba(255, 75, 43, 0.5);
+}
+
+/* Blue Approve Button */
+.button-approve-blue {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.button-approve-blue:hover {
+  background-color: #1976d2;
+}
+
+/* Orange Reject Button */
+.button-reject-orange {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.button-reject-orange:hover {
+  background-color: #e68900;
+}
+
+/* Light Close Button */
+.modal-actions .light {
+  background-color: #fd0606;
+  color: #fff;
+}
+.modal-actions .light:hover {
+  background-color: #860c0c;
+}
+
+/* ------------------ Responsive Design ------------------ */
 
 /* Small Mobile (max-width: 480px) */
 @media (max-width: 480px) {
@@ -163,7 +302,7 @@ button.secondary:hover {
   }
 }
 
-/* Large Mobile / Small Tablet (481px - 767px) */
+/* Medium Mobile / Small Tablets */
 @media (min-width: 481px) and (max-width: 767px) {
   .company-dashboard {
     width: 90%;
@@ -183,7 +322,7 @@ button.secondary:hover {
   }
 }
 
-/* Tablets (768px - 991px) */
+/* Tablets */
 @media (min-width: 768px) and (max-width: 991px) {
   .company-dashboard {
     width: 85%;
