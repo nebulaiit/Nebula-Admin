@@ -1,34 +1,115 @@
-.topic-form form {
-  background: var(--bg-card);
-  padding: 15px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-light);
+.topic-form {
+  width: 480px;
+  margin: 60px auto;
+  padding: 35px 30px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: fadeIn 0.5s ease-out;
 }
 
-.topic-form select,
-.topic-form input {
+.topic-form .form-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00aaff, #00ffe7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.topic-form form .dropdown-btn {
   width: 100%;
   padding: 10px;
-  background: var(--bg-dark);
+  margin-bottom: 18px;
+  border-radius: 15px;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff !important;
   border: none;
-  border-radius: var(--radius);
-  color: var(--text-light);
-  margin-bottom: 10px;
+}
+.topic-form .language-dropdown-menu {
+  position: fixed; /* makes it modal-like */
+  top: 68%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1e1e1e;
+  color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  width: 420px;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.language-dropdown-menu .dropdown-item {
+  max-width: 100px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+.topic-form form input {
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff !important;
+  outline: none;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.topic-form form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .topic-form select {
   cursor: pointer;
 }
 
-.topic-form button {
-  background: var(--success);
-  color: white;
-  padding: 10px 20px;
-  border-radius: var(--radius);
-  border: none;
-  cursor: pointer;
-  transition: var(--transition);
+.topic-form select:focus,
+.topic-form input:focus {
+  outline: none;
+  border-color: #00c4ff;
+  box-shadow: 0 0 8px rgba(0, 196, 255, 0.4);
+  background: rgba(255, 255, 255, 0.08);
 }
-.topic-form button:hover {
-  background: #157347;
+
+.topic-form form .form-button {
+  width: 100%;
+  padding: 12px 15px;
+  margin-top: 10px;
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.topic-form .form-button:hover {
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

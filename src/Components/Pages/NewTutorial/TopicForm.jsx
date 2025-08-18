@@ -1,72 +1,105 @@
 import React, { useState, useEffect } from 'react';
+import { Dropdown } from "react-bootstrap";
 import axios from 'axios';
 import './TopicForm.css'
+import { fetchLanguages } from '../../APIService/apiservice';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-
-// [
-//   {
-//     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//     "name": "string",
-//     "slug": "string"
-//   }
-// ]
 
 const TopicForm = () => {
   const [languages, setLanguages] = useState([]);
-  const [languageId, setLanguageId] = useState('3fa85f64-5717-4562-b3fc-2c963f66afa6');
-  const [topicName, setTopicName] = useState('');
   const [message, setMessage] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedLanguageName, setSelectedLanguageName] = useState("Select Language");
+
+  const [topic, setTopic] = useState({
+    languageId: "",
+    topicName: ""
+  })
 
   useEffect(() => {
-    // const getLanguages = async () => {
-    //   try {
-    //     const langs = await fetchLanguages();
-    //     setLanguages(langs);
-    //   } catch (err) {
-    //     setMessage('Failed to load languages');
-    //   }
-    // };
-    // getLanguages();
+    const getLanguages = async () => {
+      try {
+        const langs = await fetchLanguages();
+        setLanguages(langs);
+      } catch (err) {
+        setMessage('Failed to load languages');
+      }
+    };
+    getLanguages();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log(topic)
 
-    if (!languageId || !topicName) return setMessage('Fill all fields');
 
-    console.log(languageId)
-    console.log(topicName)
+  };
 
-    // try {
-    //   await createTopic({ name: topicName, languageId });
-    //   setMessage('Topic created successfully!');
-    //   setTopicName('');
-    // } catch (err) {
-    //   setMessage('Error creating topic');
-    // }
+  const onSelectLanguage = (id, name) => {
+
+    setSelectedLanguageName(name);
+    setMenuOpen(false);
+    setTopic((prev) => ({
+      ...prev,
+      languageId: id,
+    }));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTopic((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
-    <div className="container mt-5">
-      <h4>Add Topic</h4>
+    <div className="topic-form ">
+      <h4 className='form-title'>Add Topic</h4>
       <form onSubmit={handleSubmit}>
-        <select className="form-select mb-3" value={languageId} onChange={e => setLanguageId(e.target.value)}>
-          <option value="">Select Language</option>
-          {languages.map(l => (
-            <option key={l.id} value={l.id}>{l.name}</option>
-          ))}
-        </select>
+        <div>
+          <button
+            type="button"
+            className="dropdown-btn"
+            onClick={(e) => {
+              e.preventDefault();
+              setMenuOpen(!menuOpen);
+            }}
+          >
+            {selectedLanguageName} <ExpandMoreIcon />
+          </button>
+        </div>
+
+        {menuOpen && (
+          <>
+
+            <div className="language-dropdown-menu">
+              {languages.map((l) => (
+                <div
+                  key={l.id}
+                  className="dropdown-item"
+                  onClick={() => onSelectLanguage(l.id, l.name)}
+                >
+                  {l.name}
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
 
         <input
           type="text"
           className="form-control mb-3"
           placeholder="Topic Name"
-          value={topicName}
-          onChange={e => setTopicName(e.target.value)}
+          name='topicName'
+          value={topic.topicName}
+          onChange={handleChange}
         />
 
-        <button className="btn btn-primary">Create Topic</button>
+        <button className="form-button">Create Topic</button>
 
         {message && <div className="alert alert-info mt-3">{message}</div>}
       </form>

@@ -121,7 +121,7 @@ export default function Header({ variant = "default" }) {
             <div className={`sidebar-wrapper ${sidebarOpen ? 'open' : ''}`}>
               <div className={` sidebar ${sidebarOpen ? 'active' : ''}`}>
                 <img src={logo} alt="logo" />
-                <h1 className="text-uppercase ">Nebula</h1>
+                <h1 className="text-uppercase ">QubitronX</h1>
 
                 <div className='main-item1'>
                   <h3 className="text-secondary text-uppercase fs-6 fw-bold mt-2">Main</h3>
@@ -171,6 +171,10 @@ export default function Header({ variant = "default" }) {
                   <div className="d-flex align-items-center p-2 cursor-pointer rounded-3">
                     <PersonOutlineOutlinedIcon className="fs-5 me-3" />
                     <Link to='/job-dashboard' className="main-title">Job Dashboard</Link>
+                  </div>
+                  <div className="d-flex align-items-center p-2 cursor-pointer rounded-3">
+                    <PersonOutlineOutlinedIcon className="fs-5 me-3" />
+                    <Link to='/add-job-opening' className="main-title">Add Job Post</Link>
                   </div>
                   <div className="d-flex align-items-center p-2 cursor-pointer rounded-3">
                     <PersonAddAltOutlinedIcon className="fs-5 me-3" />

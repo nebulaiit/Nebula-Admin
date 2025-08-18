@@ -1,95 +1,159 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-
-
-// [
-//   {
-//     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//     "name": "string",
-//     "slug": "string"
-//   }
-// ]
+import './PageForm.css';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { fetchLanguages, FetchTopicByLang } from '../../APIService/apiservice';
 
 
 const PageForm = () => {
   const [languages, setLanguages] = useState([]);
-  const [languageId, setLanguageId] = useState('3fa85f64-5717-4562-b3fc-2c963f66afa6');
+  const [languageId, setLanguageId] = useState('');
   const [topics, setTopics] = useState([]);
   const [topicId, setTopicId] = useState('');
   const [pageTitle, setPageTitle] = useState('');
   const [pageContent, setPageContent] = useState('');
   const [message, setMessage] = useState('');
+  const [menuLanguage, setMenuLanguage] = useState(false);
+  const [menuTopic, setMenuTopic] = useState(false);
+  const [selectedLanguageName, setSelectedLanguageName] = useState("Select Language");
+  const [selectedTopicName, setSelectedTopicName] = useState("Select Topic");
 
-  useEffect(() => {
-    // axios.get('/api/languages').then(res => setLanguages(res.data));
-  }, []);
-
-  useEffect(() => {
-    // if (languageId) {
-    //   axios.get(`/api/topics/by-language/${languageId}`).then(res => setTopics(res.data));
-    // } else {
-    //   setTopics([]);
-    // }
-  }, [languageId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log(topicId);
-    // if (!topicId || !pageTitle || !pageContent) return setMessage('Please fill all fields');
-    // try {
-    //   await axios.post('/api/pages', {
-    //     title: pageTitle,
-    //     contentHtml: pageContent,
-    //     topicId
-    //   });
-    //   setMessage('Page created successfully!');
-    //   setPageTitle('');
-    //   setPageContent('');
-    //   setTopicId('');
-    // } catch (err) {
-    //   setMessage('Error creating page');
-    // }
+
   };
 
+  const onSelectLanguage = (id, name) => {
+    setLanguageId(id)
+    setSelectedLanguageName(name);
+    setMenuLanguage(false);
+
+  };
+  const onSelectTopic = (id, name) => {
+    setTopicId(id)
+    setSelectedTopicName(name);
+    setMenuTopic(false);
+
+  };
+
+  useEffect(() => {
+    const getLanguages = async () => {
+      try {
+        const langs = await fetchLanguages();
+        setLanguages(langs);
+      } catch (err) {
+        setMessage('Failed to load languages');
+      }
+    };
+    getLanguages();
+  }, []);
+
+  useEffect(() => {
+    if (!languageId) return; // skip if empty
+    const getTopics = async () => {
+      try {
+        const res = await FetchTopicByLang(languageId);
+        setTopics(res);
+      } catch (err) {
+        setMessage('Failed to load languages');
+      }
+    };
+    getTopics();
+  }, [languageId]);
+
   return (
-    <div className="container mt-5">
+    <div className="page-form-container">
       <h4>Add Page</h4>
       <form onSubmit={handleSubmit}>
-        <select className="form-select mb-3" value={languageId} onChange={e => setLanguageId(e.target.value)}>
-          <option value="">Select Language</option>
-          {languages.map(l => (
-            <option key={l.id} value={l.id}>{l.name}</option>
-          ))}
-        </select>
+        <div className='d-flex justify-content-between'>
+          <div className='dropdwon-menu'>
+            <button
+              type="button"
+              className="dropdown-language-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                setMenuLanguage(!menuLanguage);
+              }}
+            >
+              {selectedLanguageName} <ExpandMoreIcon />
+            </button>
+          </div>
+          <div className='dropdwon-menu'>
+            <button
+              type="button"
+              className="dropdown-topic-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                setMenuTopic(!menuTopic);
+              }}
+            >
+              {selectedTopicName} <ExpandMoreIcon />
+            </button>
+          </div>
+        </div>
 
-        <select className="form-select mb-3" value={topicId} onChange={e => setTopicId(e.target.value)} disabled={!topics.length}>
-          <option value="">Select Topic</option>
-          {topics.map(t => (
-            <option key={t.id} value={t.id}>{t.name}</option>
-          ))}
-        </select>
+        {menuLanguage && (
+          <>
+
+            <div className="language-dropdown-menu">
+              {languages.map((l) => (
+                <div
+                  key={l.id}
+                  className="dropdown-item"
+                  onClick={() => onSelectLanguage(l.id, l.name)}
+                >
+                  {l.name}
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+        {menuTopic && (
+          <>
+
+            <div className="topic-dropdown-menu">
+              {topics && topics.length > 0 ? (
+                topics.map((l) => (
+                  <div
+                    key={l.id}
+                    className="dropdown-item"
+                    onClick={() => onSelectTopic(l.id, l.name)}
+                  >
+                    {l.name}
+                  </div>
+                ))
+              ) : (
+                <div className="dropdown-no-item mx-4">
+                  <p className='m-0'>Please select the Language first</p>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
+
 
         <input
           type="text"
-          className="form-control mb-3"
+          className="page-form-input"
           placeholder="Page Title"
           value={pageTitle}
           onChange={e => setPageTitle(e.target.value)}
         />
 
         <textarea
-          className="form-control mb-3"
+          className="page-form-input page-form-textarea"
           placeholder="Enter HTML content here"
           rows="6"
           value={pageContent}
           onChange={e => setPageContent(e.target.value)}
         />
 
-        <button className="btn btn-success">Create Page</button>
+        <button className="page-form-button">Create Page</button>
 
-        {message && <div className="alert alert-info mt-3">{message}</div>}
+        {message && <div className="page-form-message">{message}</div>}
       </form>
     </div>
   );

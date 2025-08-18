@@ -1,0 +1,143 @@
+.job-form-container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.job-form-container h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.job-form-container form {
+  padding: 0 20px;
+}
+
+.job-form-container form .form-group-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.job-form-container form .form-box {
+  width: 48%;
+}
+
+.job-form-container form .array-box {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.job-form-container form .form-box label {
+  margin: 10px 0 5px;
+  font-weight: 600;
+}
+
+.job-form-container form .form-box .check-box-label {
+  font-size: 1.2rem;
+}
+
+.job-form-container form .form-box input,
+.job-form-container form .form-box select,
+.job-form-container form .form-box textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: whitesmoke;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.job-form-container form .form-box .check-box {
+  width: 4%;
+  margin-right: 10px;
+}
+
+.job-form-container form .form-box textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.job-form-container form .array-field {
+  width: 48%;
+  margin-top: 20px;
+  padding: 15px 20px;
+  background: #171717;
+  border-radius: 16px;
+}
+
+.job-form-container form .array-field label {
+  color: rgb(255, 255, 255);
+      font-weight: 600;
+      font-size: 16px;
+      text-transform: capitalize;
+}
+
+.array-input {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.array-input input {
+width: 80%;
+margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: whitesmoke;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.array-input button {
+    width: 12%;
+    height: 40px;
+    margin-left: 10px;
+    border-radius: 50px;
+    background: transparent;
+    border: none;
+  color: red;
+  cursor: pointer;
+  font-size: 1.5rem;
+  
+}
+
+.array-field > button {
+  background: #4caf50;
+  border: none;
+  padding: 6px 10px;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.job-form-container form .submit-btn {
+  margin-top: 25px;
+  padding: 12px 15px;
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 28px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.job-form-container form .submit-btn:hover {
+transform: translateY(-5px);
+}
+
+.alert {
+  background: #e8f4fd;
+  padding: 10px;
+  color: #3178c6;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}

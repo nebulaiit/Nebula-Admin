@@ -1,0 +1,51 @@
+.job-container {
+  width: 78%;
+  position: absolute;
+  left: 20%;
+  top: 15%;
+  padding: 30px;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(145deg, #121212, #1e1e1e);
+  color: #f0f0f0;
+  border-radius: 20px;
+}
+
+.job-container h2 {
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  background: linear-gradient(90deg, #00aaff, #00ffe7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.job-container .side-options-box{
+    margin-bottom: 20px;
+}
+.job-container .side-options-box button{
+  background: transparent;
+  color: #f0f0f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 14px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.job-container .side-options-box button:hover {
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  color: #fff;
+  border-color: transparent;
+}
+
+.job-container .side-options-box button.active {
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(0, 196, 255, 0.3);
+}
+
+.job-container .job-content-box{
+    
+}

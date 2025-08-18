@@ -9,7 +9,6 @@ export const registerUser = async (body) =>{
   
     try {
         const response = await axios.post(url, body)
-        console.log(response);
         return response.data;
         
     } catch (error) {
@@ -61,11 +60,11 @@ export const getUserDetials = async (userId)=>{
     }
 } 
 
-export const addNewTutorial = async (token, {tutorialName})=>{
-    const url = `${API_BASE_URL}${API_URLs.ADD_TUTORIAL}`;
-    console.log({tutorialName});
+export const addNewTutorial = async (token, body)=>{
+    const url = `${API_BASE_URL}${API_URLs.Add_Language}`;
+
     try {
-        const response = await axios.post(url, {tutorialName},
+        const response = await axios.post(url, body,
                     { headers: {
                         Authorization:` Bearer ${token}`,
                         "Content-Type": "application/json",
@@ -80,12 +79,12 @@ export const addNewTutorial = async (token, {tutorialName})=>{
     }
 } 
 
-export const getAllTutorial = async ()=>{
-    const url = `${API_BASE_URL}${API_URLs.GET_ALL_TUTORIAL}`;
+export const fetchLanguages = async ()=>{
+    const url = `${API_BASE_URL}${API_URLs.Get_Language}`;
 
     try {
         const response = await axios.get(url);
-        // console.log(response);
+        console.log(response);
         return response.data;
         
     } catch (error) {
@@ -108,17 +107,28 @@ export const getTutorialByName = async (tutorialName)=>{
     }
 } 
 
-export const addNewHeading = async (id,token, {tutorialName})=>{
-    const url = `${API_BASE_URL}${API_URLs.ADD_TUTORIAL}`;
+export const FetchTopicByLang = async (id)=>{
+    const url = `${API_BASE_URL}${API_URLs.Get_Topics}/${id}`;
+    console.log(url)
+    try {
+        const response = await axios.get(url);
+        return response.data;
+        
+    } catch (error) {
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+} 
+export const addNewTopic = async (token,body)=>{
+    const url = `${API_BASE_URL}${API_URLs.Add_Topics}`;
  
     try {
-        const response = await axios.post(url, {tutorialName},
+        const response = await axios.post(url, body,
                     { headers: {
                         Authorization:` Bearer ${token}`,
                         "Content-Type": "application/json",
                     }
                 });
-        console.log(response);
         return response.data;
         
     } catch (error) {
@@ -126,20 +136,7 @@ export const addNewHeading = async (id,token, {tutorialName})=>{
         throw error;
     }
 } 
-
-export const getAllCourse = async ()=>{
-    const url = `${API_BASE_URL}${API_URLs.GET_COURSE_LIST}`;
-
-    try {
-        const response = await axios.get(url);
-        // console.log(response);
-        return response.data;
-        
-    } catch (error) {
-        console.error('Error:', error.response || error.message);
-        throw error;
-    }
-} 
+ 
 
 export const getCourseDetailsById = async (id)=>{
     const url = `${API_BASE_URL}${API_URLs.GET_COURSE_LIST}/${id}`;

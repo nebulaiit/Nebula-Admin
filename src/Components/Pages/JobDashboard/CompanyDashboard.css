@@ -63,17 +63,17 @@ td {
   box-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
 }
 
-button:hover {
+.company-dashboard .section table td button:hover {
   background: #009acd;
   box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
 }
 
-button.secondary {
+.company-dashboard .section table td button.secondary {
   background: #555;
   box-shadow: none;
 }
 
-button.secondary:hover {
+butt.company-dashboard .section table td buttonon.secondary:hover {
   background: #777;
 }
 

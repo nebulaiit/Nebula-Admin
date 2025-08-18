@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './EditCourse.css'; // Style as needed
 import courseImg from '../../../Images/Thumbnail/python.png'
 import Currency from '@mui/icons-material/CurrencyRupeeOutlined';
-import { getAllCourse } from '../../APIService/apiservice';
 
 const EditCourse = () => {
   const [courseList, setCourseList] = useState([]);

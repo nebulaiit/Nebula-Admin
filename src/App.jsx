@@ -1,13 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Header from './Components/Header/Header'
 import Dashboard from './Components/Pages/Dashboard/Dashboard'
 import Login from './Components/Login/Login'
 import User from './Components/Pages/User/User'
-// import Content from './Components/Pages/NewContent/Content'
 import AdminPanel from './Components/Pages/NewTutorial/AdminPanel'
 import NewCourse from './Components/Pages/NewCourse/NewCourse'
 import CourseFormContainer from './Components/Pages/NewCourse/CourseFormContainer'
@@ -17,10 +14,10 @@ import ResetPassword from './Components/Login/ResetPassword'
 import NewPassword from './Components/Login/NewPassw'
 import WebsiteManager from './Components/Pages/WebsiteManager/WebsiteManager'
 import EditContent from './Components/Pages/Edit Content/EditContent'
-import CourseCard from './Components/Pages/EditCourse/EditCourse'
 import CourseDetail from './Components/Pages/EditCourse/CourseDetail'
 import EditCourse from './Components/Pages/EditCourse/EditCourse'
 import CompanyDashboard from './Components/Pages/JobDashboard/CompanyDashboard.'
+import JobMainPage from './Components/Pages/AddJobs/JobMainPage'
 
 
 
@@ -46,9 +43,10 @@ function App() {
           <Route path='/NewPassword' element={<NewPassword />} />
           <Route path='/website-pages' element={<WebsiteManager />} />
           <Route path="/edit-course" element={<EditCourse />} />
-          <Route path="/job-dashboard" element={<CompanyDashboard />} />
           <Route path="/course/:id" element={<CourseDetail />} />
-
+          <Route path="/job-dashboard" element={<CompanyDashboard />} />
+          <Route path="/add-job-opening" element={<JobMainPage />} />
+          
         </Routes>
       </BrowserRouter>
     </>

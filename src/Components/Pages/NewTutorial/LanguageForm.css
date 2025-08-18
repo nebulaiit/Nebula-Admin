@@ -1,66 +1,94 @@
 .language-form-container {
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: #f4f4f4;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 480px;
+  margin: 60px auto;
+  padding: 35px 30px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: fadeIn 0.5s ease-out;
 }
 
-.form-title {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.language-form-container  .form-title {
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00aaff, #00ffe7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.language-form {
+.language-form-container .language-form {
   display: flex;
   flex-direction: column;
 }
 
-.form-label {
-  margin-bottom: 8px;
+.language-form-container  .language-form  .form-label {
   font-weight: 500;
-  color: #444;
+  color: #e0e0e0;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
 }
 
-.form-input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #bbb;
-  border-radius: 6px;
-  margin-bottom: 20px;
+.language-form-container  .language-form  .form-input {
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
   outline: none;
-  transition: border-color 0.3s;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
 }
 
-.form-input:focus {
-  border-color: #007bff;
+.language-form-container  .language-form  .form-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
-.form-button {
-  padding: 10px 15px;
-  background-color: #007bff;
+.language-form-container  .language-form  .form-input:focus {
+  border-color: #00c4ff;
+  box-shadow: 0 0 8px rgba(0, 196, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.language-form-container  .language-form  .form-button {
+  padding: 12px 15px;
+  background: linear-gradient(135deg, #007bff, #00d4ff);
   color: white;
   font-size: 16px;
+  font-weight: 600;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: transform 0.2s ease, background 0.3s ease;
 }
 
-.form-button:hover {
-  background-color: #0056b3;
+.language-form-container  .language-form  .form-button:hover {
+  transform: translateY(-2px);
 }
 
-.success-msg {
+.language-form-container  .language-form  .success-msg {
   margin-top: 15px;
-  color: green;
+  color: #4ade80;
   font-weight: 500;
 }
 
-.error-msg {
+.language-form-container  .language-form  .error-msg {
   margin-top: 15px;
-  color: red;
+  color: #f87171;
   font-weight: 500;
 }

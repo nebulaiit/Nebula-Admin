@@ -1,35 +1,39 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./LanguageForm.css";
+import { addNewTutorial } from "../../APIService/apiservice";
 
-export default function LanguageForm(){
-  const [name, setName] = useState("");
+export default function LanguageForm() {
+  const [language, setLanguage] = useState({
+    name: "",
+    category: "",
+  });
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
+  const token = localStorage.getItem('token')
+
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLanguage((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
+    setError("");
 
-    console.log(name);
+    try {
+      const langs = await addNewTutorial(token, language);
+      // setLanguages(langs);
+    } catch (err) {
+      setMessage('Failed to load languages');
+    }
 
-    // try {
-    //   const response = await axios.post("http://localhost:8080/api/language", {
-    //     name,
-    //   });
-
-    //   if (response.data.code === 201) {
-    //     setMessage("Language created successfully!");
-    //     setError("");
-    //     setName("");
-    //   }
-    // } catch (err) {
-    //   if (err.response?.status === 409) {
-    //     setError("Language already exists.");
-    //   } else {
-    //     setError("Something went wrong.");
-    //   }
-    //   setMessage("");
-    // }
   };
 
   return (
@@ -37,16 +41,31 @@ export default function LanguageForm(){
       <h2 className="form-title">Add New Language</h2>
 
       <form onSubmit={handleSubmit} className="language-form">
-        <label htmlFor="languageName" className="form-label">
+        <label htmlFor="name" className="form-label">
           Language Name
         </label>
         <input
           type="text"
-          id="languageName"
+          id="name"
+          name="name"
           className="form-input"
           placeholder="Enter language name (e.g., HTML, Java)"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={language.name}
+          onChange={handleChange}
+          required
+        />
+
+        <label htmlFor="category" className="form-label">
+          Language Category
+        </label>
+        <input
+          type="text"
+          id="category"
+          name="category"
+          className="form-input"
+          placeholder="Enter language category (e.g., Frontend, Backend)"
+          value={language.category}
+          onChange={handleChange}
           required
         />
 
@@ -59,8 +78,4 @@ export default function LanguageForm(){
       </form>
     </div>
   );
-};
-
-
-
-"http://localhost:8080/api/topic/{id}" 
+}

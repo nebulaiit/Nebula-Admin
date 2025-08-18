@@ -4,20 +4,76 @@
   left: 20%;
   top: 8%;
   padding: 30px;
-  color: #f0f0f0;
   border-radius: 20px;
-  /* background: var(--bg-dark); */
   background: linear-gradient(145deg, #121212, #1e1e1e);
-
-  color: var(--text-light);
+  color: var(--text-light, #f0f0f0);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.4s ease-out;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
 .language-container h2 {
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 20px;
+  font-size: 1.8rem;
+  background: linear-gradient(90deg, #00aaff, #00ffe7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-hr {
-  border-color: var(--border-light);
+/* Divider */
+.language-container hr {
+  border-color: rgba(255, 255, 255, 0.1);
   margin: 20px 0;
+}
+
+/* Sidebar buttons */
+.language-container .sidebar-section button {
+  background: transparent;
+  color: #f0f0f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.sidebar-section button:hover {
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  color: #fff;
+  border-color: transparent;
+}
+
+.sidebar-section button.active {
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(0, 196, 255, 0.3);
+}
+
+/* Panel content */
+.panel-content {
+  margin-top: 20px;
+}
+
+.panel-content h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
