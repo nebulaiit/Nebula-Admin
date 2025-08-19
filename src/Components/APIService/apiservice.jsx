@@ -107,7 +107,7 @@ export const getTutorialByName = async (tutorialName)=>{
     }
 } 
 
-export const FetchTopicByLang = async (id)=>{
+export const fetchTopicByLang = async (id)=>{
     const url = `${API_BASE_URL}${API_URLs.Get_Topics}/${id}`;
     console.log(url)
     try {
@@ -119,6 +119,8 @@ export const FetchTopicByLang = async (id)=>{
         throw error;
     }
 } 
+
+
 export const addNewTopic = async (token,body)=>{
     const url = `${API_BASE_URL}${API_URLs.Add_Topics}`;
  
@@ -136,7 +138,19 @@ export const addNewTopic = async (token,body)=>{
         throw error;
     }
 } 
- 
+
+export const fetchPageBySlug = async (slug)=>{
+    const url = `${API_BASE_URL}${API_URLs.Get_Pages}/${slug}`;
+    try {
+        const response = await axios.get(url);
+        return response.data;
+        
+    } catch (error) {
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+} 
+
 
 export const getCourseDetailsById = async (id)=>{
     const url = `${API_BASE_URL}${API_URLs.GET_COURSE_LIST}/${id}`;

@@ -13,6 +13,9 @@ export const API_URLs = {
     Get_Topics:"/api/topics/by-language",
     Add_Topics:"/api/topics",
 
+//API related to Topics 
+
+    Get_Pages:"/api/pages/topic",
 }
 
 export const API_BASE_URL = "http://localhost:8080";
