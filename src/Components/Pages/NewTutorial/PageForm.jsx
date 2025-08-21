@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './PageForm.css';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { fetchLanguages, FetchTopicByLang } from '../../APIService/apiservice';
+import { fetchLanguages, fetchTopicByLang } from '../../APIService/apiservice';
 import { useDispatch } from 'react-redux';
 import { showToast } from '../../redux/toastSlice'; 
 
@@ -82,7 +82,7 @@ const PageForm = () => {
     if (!languageId) return; // skip if empty
     const getTopics = async () => {
       try {
-        const res = await FetchTopicByLang(languageId);
+        const res = await fetchTopicByLang(languageId);
         setTopics(res);
       } catch (err) {
         setMessage('Failed to load languages');
