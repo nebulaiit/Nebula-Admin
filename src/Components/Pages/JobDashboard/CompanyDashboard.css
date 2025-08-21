@@ -91,7 +91,7 @@
   box-shadow: none;
 }
 
-butt.company-dashboard .section table td buttonon.secondary:hover {
+.company-dashboard .section table td button.secondary:hover {
   background: #777;
 }
 
@@ -174,7 +174,7 @@ butt.company-dashboard .section table td buttonon.secondary:hover {
 /* ------------------ Download Resume Button ------------------ */
 .download-resume-btn {
   display: inline-block;
-  margin: 15px 0;
+  margin: 15px 0 5px 0;
   background-color: #00bcd4;
   color: white;
   padding: 10px 20px;
@@ -188,7 +188,43 @@ butt.company-dashboard .section table td buttonon.secondary:hover {
 .download-resume-btn:hover {
   background-color: #0097a7;
   transform: scale(1.05);
-  box-shadow: 0 0 16px rgba(0, 188, 212, 0.5);
+  box-shadow: 0 0 12px rgba(0, 188, 212, 0.5);
+}
+
+/* ------------------ View Resume Button ------------------ */
+.view-resume-btn {
+  display: inline-block;
+  margin-top: 8px;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 0 12px rgba(76, 175, 80, 0.3);
+}
+
+.view-resume-btn:hover {
+  background-color: #388e3c;
+  transform: scale(1.05);
+  box-shadow: 0 0 16px rgba(76, 175, 80, 0.5);
+}
+
+/* ------------------ Download Message ------------------ */
+.download-message {
+  margin-top: 10px;
+  color: #00e0ff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: fadeInOut 3s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* ------------------ Modal Action Buttons ------------------ */
@@ -237,7 +273,7 @@ butt.company-dashboard .section table td buttonon.secondary:hover {
 
 /* Blue Approve Button */
 .button-approve-blue {
-  background-color: #2196f3;
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 6px;
@@ -247,12 +283,12 @@ butt.company-dashboard .section table td buttonon.secondary:hover {
   transition: background-color 0.3s ease;
 }
 .button-approve-blue:hover {
-  background-color: #1976d2;
+  background-color: #2e8b57;
 }
 
 /* Orange Reject Button */
 .button-reject-orange {
-  background-color: #ff9800;
+  background-color: #dc3545;
   color: white;
   border: none;
   border-radius: 6px;
@@ -262,16 +298,16 @@ butt.company-dashboard .section table td buttonon.secondary:hover {
   transition: background-color 0.3s ease;
 }
 .button-reject-orange:hover {
-  background-color: #e68900;
+  background-color: #cc0000;
 }
 
 /* Light Close Button */
 .modal-actions .light {
-  background-color: #fd0606;
-  color: #fff;
+  background-color: #17a2b8;
+  color: #000f0e;
 }
 .modal-actions .light:hover {
-  background-color: #860c0c;
+  background-color: #17a2b9;
 }
 
 /* ------------------ Responsive Design ------------------ */
