@@ -5,7 +5,8 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import BackIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
 import { useDispatch } from 'react-redux';
-import { setBasicInfo } from '../../../Store/courseSlice'; // ✅ Adjust the path as per your folder structure
+import { setBasicInfo } from '../../../Store/courseSlice'; 
+import { showToast } from '../../../redux/toastSlice'; 
 
 export default function CourseBasicInfo({ onBack, onNext }) {
   const dispatch = useDispatch();
@@ -26,8 +27,26 @@ export default function CourseBasicInfo({ onBack, onNext }) {
     }
   };
 
-  const handleSubmit = () => {
+   const handleSubmit = () => {
+    // ✅ Validation checks
+    if (!localData.title.trim()) {
+      dispatch(showToast({ type: "error", message: "Course name is required" }));
+      return;
+    }
+    if (!localData.description.trim()) {
+      dispatch(showToast({ type: "error", message: "Course description is required" }));
+      return;
+    }
+    if (!localData.thumbnail) {
+      dispatch(showToast({ type: "error", message: "Please upload a thumbnail image" }));
+      return;
+    }
+
+    // ✅ Save to Redux
     dispatch(setBasicInfo(localData));
+    dispatch(showToast({ type: "success", message: "Course info saved successfully!" }));
+
+    // ✅ Go to next step
     onNext();
   };
 

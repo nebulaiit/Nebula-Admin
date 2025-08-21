@@ -4,6 +4,7 @@ import BackIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCourseFolders } from '../../../Store/courseSlice';
+import { showToast } from '../../../redux/toastSlice';
 
 export default function CourseContent({ onBack, onNext }) {
 
@@ -52,13 +53,18 @@ export default function CourseContent({ onBack, onNext }) {
 
 
   const handleCreateFolder = () => {
-    if (newFolderName.trim() === "") return;
+    if (newFolderName.trim() === "") {
+      dispatch(showToast({ type: "error", message: "⚠️ Folder name cannot be empty" }));
+      return;
+    }
+
     const newFolder = {
       fileId: Date.now(),
       fileName: newFolderName,
       label: "Folder",
       children: [],
     };
+
 
     setUploadedContent(prev =>
       selectedFolderId
@@ -69,6 +75,7 @@ export default function CourseContent({ onBack, onNext }) {
           )
         : [...prev, newFolder]
     );
+    dispatch(showToast({ type: "success", message: "📂 Folder created successfully" }));
 
     setNewFolderName("");
     setShowFolderInput(false);
@@ -102,28 +109,33 @@ export default function CourseContent({ onBack, onNext }) {
     }
   };
 
-  const handleFileUpload = (label, e) => {
+   const handleFileUpload = (label, e) => {
     const file = e.target.files[0];
     const folderId = e.target.dataset.folderId || null;
 
-    if (file) {
-      const newContent = {
-        label,
-        fileName: file.name,
-        fileType: file.type,
-        fileId: Date.now(),
-      };
-
-      setUploadedContent(prev =>
-        folderId
-          ? prev.map(item =>
-              item.fileId === parseInt(folderId)
-                ? { ...item, children: [...(item.children || []), newContent] }
-                : item
-            )
-          : [...prev, newContent]
-      );
+    if (!file) {
+      dispatch(showToast({ type: "error", message: "⚠️ No file selected" }));
+      return;
     }
+
+    const newContent = {
+      label,
+      fileName: file.name,
+      fileType: file.type,
+      fileId: Date.now(),
+    };
+
+    setUploadedContent(prev =>
+      folderId
+        ? prev.map(item =>
+            item.fileId === parseInt(folderId)
+              ? { ...item, children: [...(item.children || []), newContent] }
+              : item
+          )
+        : [...prev, newContent]
+    );
+
+    dispatch(showToast({ type: "success", message: "✅ File uploaded successfully" }));
   };
 
   const handleDelete = (fileId) => {
@@ -138,6 +150,7 @@ export default function CourseContent({ onBack, onNext }) {
     }
 
     setActiveDropdown(null);
+     dispatch(showToast({ type: "info", message: "🗑️ Deleted successfully" }));
   };
 
   const handleEdit = (fileId) => {
@@ -148,6 +161,7 @@ export default function CourseContent({ onBack, onNext }) {
           item.fileId === fileId ? { ...item, fileName: newFileName } : item
         )
       );
+      dispatch(showToast({ type: "success", message: "✏️ Renamed successfully" }));
     }
     setActiveDropdown(null);
   };

@@ -1,11 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import BackIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
 import './Publish.css';
+import { showToast } from "../../../redux/toastSlice";
 
 function Publish({ onBack }) {
   const courseState = useSelector((state) => state.course);
+  const dispatch = useDispatch();
 
   const {
     courseTitle,
@@ -24,17 +26,45 @@ function Publish({ onBack }) {
     });
     return count;
   };
-
-  const saveDraft = () => {
-    console.log("Saved as draft:", courseState);
-    alert("Draft saved!");
+   const validateCourse = () => {
+    if (!courseTitle || !courseDescription) {
+      dispatch(showToast({ message: "⚠️ Title & description are required", type: "warning" }));
+      return false;
+    }
+    if (!coursePrice?.price) {
+      dispatch(showToast({ message: "⚠️ Please set a course price", type: "warning" }));
+      return false;
+    }
+    if (countContent("Video") + countContent("Document") + countContent("Study/Notes/Text") === 0) {
+      dispatch(showToast({ message: "⚠️ Add at least one video or document", type: "warning" }));
+      return false;
+    }
+    return true;
   };
 
-  const publish = () => {
-    console.log("Published course:", courseState);
-    alert("Course published!");
-    // you can dispatch a thunk or API call here to send `courseState` to backend
+const saveDraft = async () => {
+    try {
+      // await saveDraftCourse(courseState); // API call
+      dispatch(showToast({ message: "✅ Course saved as draft", type: "success" }));
+    } catch (err) {
+      dispatch(showToast({ message: "❌ Failed to save draft", type: "error" }));
+    }
   };
+
+  const publish = async () => {
+    if (!validateCourse()) return;
+
+    try {
+      // await publishCourse(courseState); // API call
+      dispatch(showToast({ message: "🚀 Course published successfully!", type: "success" }));
+
+      // Optional: clear builder state or redirect
+      // navigate("/dashboard");
+    } catch (err) {
+      dispatch(showToast({ message: "❌ Failed to publish course", type: "error" }));
+    }
+  };
+
 
   return (
     <div className="publish-wrapper">

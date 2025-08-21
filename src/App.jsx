@@ -1,5 +1,6 @@
 
 import './App.css'
+import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Header from './Components/Header/Header'
 import Dashboard from './Components/Pages/Dashboard/Dashboard'
@@ -18,6 +19,8 @@ import CourseDetail from './Components/Pages/EditCourse/CourseDetail'
 import EditCourse from './Components/Pages/EditCourse/EditCourse'
 import CompanyDashboard from './Components/Pages/JobDashboard/CompanyDashboard.'
 import JobMainPage from './Components/Pages/AddJobs/JobMainPage'
+import ToastList from './Components/Toast/ToastList'
+
 
 
 
@@ -48,6 +51,7 @@ function App() {
           <Route path="/add-job-opening" element={<JobMainPage />} />
           
         </Routes>
+        <ToastList />
       </BrowserRouter>
     </>
   )

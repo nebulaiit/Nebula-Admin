@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './PageForm.css';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { fetchLanguages, fetchTopicByLang } from '../../APIService/apiservice';
+import { fetchLanguages, FetchTopicByLang } from '../../APIService/apiservice';
+import { useDispatch } from 'react-redux';
+import { showToast } from '../../redux/toastSlice'; 
 
 
 const PageForm = () => {
@@ -16,13 +18,39 @@ const PageForm = () => {
   const [menuTopic, setMenuTopic] = useState(false);
   const [selectedLanguageName, setSelectedLanguageName] = useState("Select Language");
   const [selectedTopicName, setSelectedTopicName] = useState("Select Topic");
+  const dispatch = useDispatch();
 
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log(topicId);
 
-    console.log(topicId);
+    if (!languageId || !topicId || !pageTitle || !pageContent) {
+      dispatch(
+        showToast({ message: "⚠️ Please fill all fields before submitting", type: "warning" })
+      );
+      return;
+    }
 
+    try {
+      // TODO: Replace with your API call to createPage
+      // await createPage({ languageId, topicId, pageTitle, pageContent });
+
+      dispatch(
+        showToast({ message: "✅ Page created successfully!", type: "success" })
+      );
+
+      // Reset form
+      setPageTitle("");
+      setPageContent("");
+      setSelectedTopicName("Select Topic");
+      setTopicId("");
+    } catch (err) {
+      dispatch(
+        showToast({ message: "❌ Failed to create page. Please try again.", type: "error" })
+      );
+    }
   };
 
   const onSelectLanguage = (id, name) => {
@@ -54,7 +82,7 @@ const PageForm = () => {
     if (!languageId) return; // skip if empty
     const getTopics = async () => {
       try {
-        const res = await fetchTopicByLang(languageId);
+        const res = await FetchTopicByLang(languageId);
         setTopics(res);
       } catch (err) {
         setMessage('Failed to load languages');

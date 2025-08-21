@@ -1,0 +1,129 @@
+/* Toast.css */
+.toast-container {
+    width: 320px;
+    position: fixed;
+    bottom: 5%;
+    right: 8%;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    pointer-events: none;
+}
+
+.toast-container .toast {
+    padding: 16px 24px;
+    border-radius: 20px;
+    display: inline-block;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        0 6px 12px rgba(0, 255, 160, 0.25),
+        inset 0 0 8px rgba(255, 255, 255, 0.05);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    pointer-events: all;
+    animation-name: toastIn, toastOut;
+    animation-duration: 0.6s, 0.6s;
+    animation-delay: 0s, 2.4s;
+    animation-timing-function: ease-out, ease-in;
+    animation-fill-mode: forwards, forwards;
+    animation-direction: normal, normal;
+}
+
+/* Toast Text */
+.toast-container .toast p {
+    margin: 0;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+    color:var(--bg-primary-dark);
+
+}
+
+/* Type-specific styles with glowing borders */
+.toast.success {
+    border: 1.5px solid rgba(40, 167, 69, 0.4);
+    box-shadow:
+        0 0 10px rgba(83, 255, 40, 0.5),
+        0 0 25px rgba(40, 255, 100, 0.15),
+        inset 0 0 10px rgba(40, 255, 100, 0.05);
+
+}
+
+
+
+.toast.error {
+    border: 2px solid rgba(140, 243, 247, 0.6);
+    box-shadow:
+        0 0 15px rgba(131, 226, 255, 0.4),
+        0 0 30px rgba(35, 165, 174, 0.2);
+}
+
+/* Dark Mode Support */
+
+.toast-container.dark .toast {
+    background: var(--bg-primary-dark);
+
+}
+
+.toast-container.dark .toast p {
+    color:var(--bg-primary);
+
+}
+
+
+/* Dark mode success style */
+
+.toast-container.dark .toast.success {
+    border: 2px solid rgba(40, 255, 100, 0.5);
+  box-shadow:
+        0 0 10px rgba(83, 255, 40, 0.5),
+        0 0 25px rgba(40, 255, 100, 0.15),
+        inset 0 0 10px rgba(40, 255, 100, 0.05);
+}
+
+/* Dark mode error style */
+.toast-container.dark .toast.error {
+    border: 2px solid rgba(255, 77, 77, 0.6);
+    box-shadow:
+        0 0 15px rgba(163, 69, 69, 0.4),
+        0 0 30px rgba(255, 77, 77, 0.2);
+    color: #ffd1d1;
+}
+
+
+@keyframes toastIn {
+    0% {
+        transform: translateX(100%) scale(0.95);
+        opacity: 0;
+    }
+
+    60% {
+        transform: translateX(-10%) scale(1.02);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(0) scale(1);
+        opacity: 0.95;
+    }
+}
+
+@keyframes toastOut {
+    0% {
+        transform: translateX(0) scale(1);
+        opacity: 0.95;
+    }
+
+    50% {
+        transform: translateX(10%) scale(0.98);
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: translateX(100%) scale(0.95);
+        opacity: 0;
+    }
+}

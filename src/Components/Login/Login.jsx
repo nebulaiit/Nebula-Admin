@@ -1,11 +1,14 @@
 import React, { useState } from "react";   
 import loginImg from "../../Images/login2.png";
 import './Login.css'
+import { useDispatch } from "react-redux";
+import { showToast } from ".././redux/toastSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { loginUser } from "../APIService/apiservice";
 
 export default function Login() {
+  const dispatch = useDispatch();
 
     const [values, setValues] = useState({
       userName: '',
@@ -18,27 +21,41 @@ export default function Login() {
     const navigate = useNavigate();
   
     const handleSubmit = async (e) => {
-      e.preventDefault();
-      setError(""); // Clear previous errors
-  
-      try {
-          const response = await loginUser(values);
-          console.log(response)
+  e.preventDefault();
+  setError(""); // Clear previous errors
 
-          if (response?.token && response?.role) {
-     
-              localStorage.setItem("token", response.token);
-              localStorage.setItem("role", response.role);
-              localStorage.setItem("userId", response.userId);
-              navigate("/dashboard");
-        
-          } else {
-              setError(response.message || "Invalid credentials");
-          }
-      } catch (error) {
-          setError(error.response?.data?.message || "Login failed. Please try again.");
-      }
-    };
+  // 🚨 Case 1: If username or password is missing
+  if (!values.userName || !values.password) {
+    dispatch(showToast({ message: "Please enter ID and password ⚠️", type: "warning" }));
+    return;
+  }
+
+  try {
+    const response = await loginUser(values);
+    console.log(response);
+
+    if (response?.token && response?.role) {
+      // Save in localStorage
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("role", response.role);
+      localStorage.setItem("userId", response.userId);
+
+      // 🚀 Success toast
+      dispatch(showToast({ message: "Login successful 🎉", type: "success" }));
+
+      navigate("/dashboard");
+    } else {
+      // ❌ Wrong credentials
+      dispatch(showToast({ message: response.message || "Wrong ID or Password ❌", type: "error" }));
+      setError(response.message || "Invalid credentials");
+    }
+  } catch (error) {
+    // ❌ Backend/network error
+    dispatch(showToast({ message: "Login failed. Please try again. ❌", type: "error" }));
+    setError(error.response?.data?.message || "Login failed. Please try again.");
+  }
+};
+
 
 
        const handleChange = (e) => {

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./LanguageForm.css";
 import { addNewTutorial } from "../../APIService/apiservice";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 
 export default function LanguageForm() {
   const [language, setLanguage] = useState({
@@ -11,7 +13,8 @@ export default function LanguageForm() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token');
+  const dispatch = useDispatch();
 
 
   const handleChange = (e) => {
@@ -22,19 +25,34 @@ export default function LanguageForm() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage("");
-    setError("");
 
     try {
-      const langs = await addNewTutorial(token, language);
-      // setLanguages(langs);
-    } catch (err) {
-      setMessage('Failed to load languages');
-    }
+      const response = await addNewTutorial(token, language);
 
-  };
+      // ✅ Success toast
+      dispatch(
+        showToast({
+          message: "Language added successfully 🎉",
+          type: "success",
+        })
+      );
+
+      // ✅ Reset form after success
+      setLanguage({ name: "", category: "" });
+
+    } catch (err) {
+      // ✅ Error toast
+      dispatch(
+        showToast({
+          message: "❌ Failed to add language. Please try again.",
+          type: "error",
+        })
+      );
+    }
+  };    
+
 
   return (
     <div className="language-form-container">

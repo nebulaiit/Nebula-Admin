@@ -4,6 +4,7 @@ import { setCoursePrice } from '../../../Store/courseSlice';
 import BackIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
 import './EditPrice.css';
+import { showToast } from '../../../redux/toastSlice';
 
 export default function EditPriceForm({ onBack, onNext }) {
   const dispatch = useDispatch();
@@ -19,8 +20,31 @@ export default function EditPriceForm({ onBack, onNext }) {
     }));
   };
 
-  const handleSubmit = () => {
+    const handleSubmit = () => {
+    // 🔹 Validation
+    if (!form.price || form.price <= 0) {
+      dispatch(showToast({ type: "error", message: "Please enter a valid price" }));
+      return;
+    }
+
+    if (form.validityType === "Limited") {
+      if (!form.duration || form.duration <= 0) {
+        dispatch(showToast({ type: "error", message: "Please enter a valid duration" }));
+        return;
+      }
+      if (!form.durationUnit) {
+        dispatch(showToast({ type: "error", message: "Please select a duration unit" }));
+        return;
+      }
+    }
+
+    // 🔹 Save to Redux
     dispatch(setCoursePrice(form));
+
+    // 🔹 Success toast
+    dispatch(showToast({ type: "success", message: "Course price saved successfully!" }));
+
+    // 🔹 Go to next step
     onNext();
   };
 

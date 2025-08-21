@@ -4,6 +4,8 @@ import axios from 'axios';
 import './TopicForm.css'
 import { fetchLanguages } from '../../APIService/apiservice';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useDispatch } from 'react-redux';
+import { showToast } from '../../redux/toastSlice';
 
 
 const TopicForm = () => {
@@ -15,7 +17,9 @@ const TopicForm = () => {
   const [topic, setTopic] = useState({
     languageId: "",
     topicName: ""
-  })
+  });
+
+   const dispatch = useDispatch();
 
   useEffect(() => {
     const getLanguages = async () => {
@@ -29,12 +33,28 @@ const TopicForm = () => {
     getLanguages();
   }, []);
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log(topic)
 
-    console.log(topic)
+    if (!topic.languageId || !topic.topicName) {
+      dispatch(showToast({ message: "⚠️ Please select language & enter topic name", type: "warning" }));
+      return;
+    }
 
+    try {
+      // Call API to create topic
+      await createTopic(topic);
 
+      dispatch(showToast({ message: "✅ Topic created successfully!", type: "success" }));
+
+      // Reset form
+      setTopic({ languageId: "", topicName: "" });
+      setSelectedLanguageName("Select Language");
+    } catch (err) {
+      dispatch(showToast({ message: "❌ Failed to create topic", type: "error" }));
+    }
   };
 
   const onSelectLanguage = (id, name) => {
