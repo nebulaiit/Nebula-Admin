@@ -1,24 +1,44 @@
 import React, { useState } from 'react';
 import './CompanyDashboard.css';
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
+
 
 const ViewApplicationModal = ({ application, onClose, onStatusChange }) => {
   const [downloadMsg, setDownloadMsg] = useState("");
   const [viewModalOpen, setViewModalOpen] = useState(false); // state to control view modal
+    const dispatch = useDispatch();
 
   const handleApprove = () => {
+    
     onStatusChange(application.id, "Approved");
+
+    // ✅ Success toast
+    dispatch(showToast({
+      message: `Application for ${application.name} approved 🎉`,
+      type: "success",
+    }));
     onClose();
   };
 
   const handleReject = () => {
     onStatusChange(application.id, "Rejected");
+
+     // ✅ Error toast
+    dispatch(showToast({
+      message: `Application for ${application.name} rejected ❌`,
+      type: "error",
+    }));
     onClose();
   };
 
   // Programmatic Download
   const handleDownload = async () => {
     try {
-      setDownloadMsg("✅ Your resume is downloading...");
+       dispatch(showToast({
+        message: "Downloading resume... ⏬",
+        type: "info",
+      }));
 
       const response = await fetch(application.resumeUrl);
       const blob = await response.blob();
@@ -34,7 +54,10 @@ const ViewApplicationModal = ({ application, onClose, onStatusChange }) => {
 
       setTimeout(() => setDownloadMsg(""), 3000);
     } catch (error) {
-      setDownloadMsg("❌ Failed to download resume.");
+      dispatch(showToast({
+        message: "Failed to download resume ❌",
+        type: "error",
+      }));
       console.error("Download error:", error);
     }
   };

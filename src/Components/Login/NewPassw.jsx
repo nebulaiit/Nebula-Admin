@@ -5,6 +5,8 @@ import bg from "../../Images/login3.png"
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 // import { confirmPassword } from "../../APIService/apiservice";
 import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { showToast } from "../redux/toastSlice"; // ✅ import toast
 
 export default function NewPassword() {
   const [newPassword, setNewPassword] = useState("");
@@ -17,6 +19,7 @@ export default function NewPassword() {
   const username = location.state?.username || ""; // Retrieve username
   
   const navigate = useNavigate();
+    const dispatch = useDispatch(); // ✅ dispatch hook
 
   const [values, setValues] = useState({
     userName: username || "",
@@ -37,7 +40,7 @@ export default function NewPassword() {
 
     // Check if passwords match
     if (newPassword !== confirmPwd) {
-      setError("Passwords do not match!");
+      dispatch(showToast({ type: "error", message: "Passwords do not match!" }));
       
       return;
     }
@@ -47,14 +50,17 @@ export default function NewPassword() {
       // const response = await confirmPassword(values);
 
       if (response?.code === 200) {
-        setMessage("Password Reset Successful.");
+        dispatch(showToast({ type: "success", message: "Password reset successful!" }));
         setError("");
         setTimeout(() => navigate("/"), 2000); // Redirect after 2 seconds
       } else {
         setError("Invalid request or email already exists!");
       }
     } catch (error) {
-      setError(error.response?.data?.message || "Error resetting password.");
+      dispatch(showToast({ 
+        type: "error", 
+        message: error.response?.data?.message || "Error resetting password." 
+      }));
     }
   };
 

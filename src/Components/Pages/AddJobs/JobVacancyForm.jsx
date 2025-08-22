@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./JobVacancyForm.css";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 
 export default function JobVacancyForm() {
+     const dispatch = useDispatch();
     const [companies, setCompanies] = useState([]);
     const [job, setJob] = useState({
         jobTitle: "",
@@ -30,6 +33,7 @@ export default function JobVacancyForm() {
         axios.get("http://localhost:8080/api/companies")
             .then(res => setCompanies(res.data))
             .catch(err => console.error("Error loading companies:", err));
+            dispatch(showToast({ type: "error", message: "Failed to load companies" }));
     }, []);
 
     const handleChange = (e) => {
@@ -56,11 +60,36 @@ export default function JobVacancyForm() {
         setJob(prev => ({ ...prev, [field]: arr }));
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = (e) => {
+  e.preventDefault();
+  setMessage("");
+  setError("");
 
-    };
+  // 👉 No API, no await
+  try {
+    // ✅ Show success toast directly
+    dispatch(
+      addToast({
+        id: Date.now(),
+        type: "success",
+        message: "Tutorial added successfully 🎉",
+      })
+    );
 
+    // setLanguages([...languages, language]); // optional if you want to update state
+  } catch (err) {
+    setMessage("Something went wrong");
+
+    // ✅ Show error toast directly
+    dispatch(
+      addToast({
+        id: Date.now(),
+        type: "error",
+        message: "❌ Failed to add tutorial. Please try again.",
+      })
+    );
+  }
+}
     return (
         <div className="job-form-container">
             <h2>Add Job Vacancy</h2>
