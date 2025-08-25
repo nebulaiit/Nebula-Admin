@@ -5,12 +5,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Form,Modal} from "react-bootstrap";
 import { Button } from '@mui/material';
 import { getUserList, registerUser } from '../../../APIService/apiservice';
+import { useDispatch } from "react-redux";
+import { showToast } from "../../../redux/toastSlice";   // ✅ import toast action
 
 export default function UserList() {
     const [employees ,setEmployees] = useState([]);
     const [show, setShow] = useState(false);
     const [toastVisible, setToastVisible] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
+    const dispatch = useDispatch();   // ✅ get dispatch
 
   // Functions to show/hide modal
   const handleShow = () => setShow(true);
@@ -39,35 +42,44 @@ export default function UserList() {
         });
       };
 
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        try{
-          const response = await registerUser(formData);
-          setToastMessage(response.message || "User Created Successfully!");
-          setToastVisible(true);
-          setShow(false)
-    
-        }
-        catch (err) {
-          console.log(err.response?.data?.message || "Failed to send message.");
-        } 
-      };
+        const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await registerUser(formData);
 
-      useEffect(()=>{
+      // ✅ Show toast instead of local state
+      dispatch(showToast({
+        type: "success",
+        message: response.message || "User Created Successfully!"
+      }));
 
-        const fetchUserList = async () =>{
-          try {
+      setShow(false);
 
-            const response = await getUserList();
-            console.log(response);
-            setEmployees(response);
-            
-          } catch (error) {
-            console.error("Error fetching documents:", error);
-          }
-        };
-        fetchUserList();
-      }, [])
+      // Refresh list after creating
+      const userList = await getUserList();
+      setEmployees(userList);
+
+    } catch (err) {
+      dispatch(showToast({
+        type: "error",
+        message: err.response?.data?.message || "Failed to create user."
+      }));
+    }
+  }
+     useEffect(() => {
+    const fetchUserList = async () => {
+      try {
+        const response = await getUserList();
+        setEmployees(response);
+      } catch (error) {
+        dispatch(showToast({
+          type: "error",
+          message: "Error fetching user list."
+        }));
+      }
+    };
+    fetchUserList();
+  }, [dispatch]);
   return (
     <>  
     <div className="user-list-wrapper">

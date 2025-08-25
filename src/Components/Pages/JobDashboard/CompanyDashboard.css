@@ -72,26 +72,25 @@
 .company-dashboard .section table td button {
   padding: 8px 18px;
   border: none;
-  background: #149ecc;
+  background: linear-gradient(135deg, #00bcd4, #0097a7);
   color: #fff;
   font-weight: 600;
   cursor: pointer;
   border-radius: 16px;
   transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
+  box-shadow: 0 0 12px rgba(0, 191, 255, 0.4);
 }
-
 .company-dashboard .section table td button:hover {
-  background: #009acd;
-  box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
+  background: linear-gradient(135deg, #00e0ff, #00bcd4);
+  box-shadow: 0 0 18px rgba(0, 224, 255, 0.7);
+  transform: translateY(-2px) scale(1.05);
 }
 
 .company-dashboard .section table td button.secondary {
   background: #555;
   box-shadow: none;
 }
-
-butt.company-dashboard .section table td buttonon.secondary:hover {
+.company-dashboard .section table td button.secondary:hover {
   background: #777;
 }
 
@@ -100,7 +99,6 @@ butt.company-dashboard .section table td buttonon.secondary:hover {
   color: #f5a623;
   font-weight: 600;
 }
-
 .status.shortlisted {
   color: #3bd671;
   font-weight: 600;
@@ -136,14 +134,8 @@ butt.company-dashboard .section table td buttonon.secondary:hover {
 }
 
 @keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .modal-box h2 {
@@ -171,24 +163,58 @@ butt.company-dashboard .section table td buttonon.secondary:hover {
   color: #fff;
 }
 
-/* ------------------ Download Resume Button ------------------ */
-.download-resume-btn {
-  display: inline-block;
-  margin: 15px 0;
-  background-color: #00bcd4;
-  color: white;
+/* ------------------ Resume Buttons ------------------ */
+.download-resume-btn,
+.view-resume-btn {
+  flex: 1 1 120px;
+  min-width: 120px;
+  text-align: center;
   padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
+  font-size: 0.95rem;
   font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-radius: 30px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  margin-top: 10px;
+  display: inline-block;
+  color: #fff;
   box-shadow: 0 0 12px rgba(0, 188, 212, 0.3);
 }
 
+/* Download */
+.download-resume-btn {
+  background: linear-gradient(135deg, #007bff, #3399ff);
+}
 .download-resume-btn:hover {
-  background-color: #0097a7;
-  transform: scale(1.05);
-  box-shadow: 0 0 16px rgba(0, 188, 212, 0.5);
+  background: linear-gradient(135deg, #00e0ff, #007bff);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 18px rgba(0, 224, 255, 0.7);
+}
+
+/* View */
+.view-resume-btn {
+  background: linear-gradient(135deg, #6f42c1, #9b59b6);
+}
+.view-resume-btn:hover {
+  background: linear-gradient(135deg, #8e63d9, #6f42c1);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 18px rgba(155, 89, 182, 0.7);
+}
+
+/* ------------------ Download Message ------------------ */
+.download-message {
+  margin-top: 10px;
+  color: #00e0ff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: fadeInOut 3s ease forwards;
+}
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* ------------------ Modal Action Buttons ------------------ */
@@ -200,83 +226,73 @@ butt.company-dashboard .section table td buttonon.secondary:hover {
   gap: 12px;
 }
 
-/* --- Save & Cancel Buttons Modern Style --- */
-.modal-actions .btn-save {
-  background: linear-gradient(135deg, #00b09b, #96c93d);
-  color: white;
-  padding: 10px 22px;
-  border-radius: 30px;
-  border: none;
+.modal-actions button {
+  flex: 1 1 120px;
+  min-width: 120px;
+  text-align: center;
+  padding: 10px 20px;
   font-size: 0.95rem;
   font-weight: 600;
+  border-radius: 30px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 224, 255, 0.3);
+  border: none;
   transition: all 0.3s ease-in-out;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(0, 224, 255, 0.25);
+}
+
+/* Save */
+.modal-actions .btn-save {
+  background: linear-gradient(135deg, #00c851, #2ecc71);
 }
 .modal-actions .btn-save:hover {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 18px rgba(0, 224, 255, 0.5);
+  box-shadow: 0 0 18px rgba(46, 204, 113, 0.7);
 }
 
+/* Cancel */
 .modal-actions .btn-cancel {
   background: linear-gradient(135deg, #ff416c, #ff4b2b);
-  color: white;
-  padding: 10px 22px;
-  border-radius: 30px;
-  border: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
-  transition: all 0.3s ease-in-out;
 }
 .modal-actions .btn-cancel:hover {
+  background: linear-gradient(135deg, #ff5f6d, #ff3b2e);
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 18px rgba(255, 75, 43, 0.5);
+  box-shadow: 0 0 18px rgba(255, 75, 43, 0.7);
 }
 
-/* Blue Approve Button */
-.button-approve-blue {
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 20px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* Approve */
+.modal-actions .button-approve-blue {
+  background: linear-gradient(135deg, #28a745, #34ce57);
 }
-.button-approve-blue:hover {
-  background-color: #1976d2;
+.modal-actions .button-approve-blue:hover {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 18px rgba(40, 167, 69, 0.7);
 }
 
-/* Orange Reject Button */
-.button-reject-orange {
-  background-color: #ff9800;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 20px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* Reject */
+.modal-actions .button-reject-orange {
+  background: linear-gradient(135deg, #e74c3c, #ff6b6b);
 }
-.button-reject-orange:hover {
-  background-color: #e68900;
+.modal-actions .button-reject-orange:hover {
+  background: linear-gradient(135deg, #ff4c4c, #cc0000);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 18px rgba(231, 76, 60, 0.7);
 }
 
-/* Light Close Button */
+/* Light */
 .modal-actions .light {
-  background-color: #fd0606;
+  background: linear-gradient(135deg, #17a2b8, #20c997);
   color: #fff;
 }
 .modal-actions .light:hover {
-  background-color: #860c0c;
+  background: linear-gradient(135deg, #20c997, #138496);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 18px rgba(23, 162, 184, 0.7);
 }
 
 /* ------------------ Responsive Design ------------------ */
-
-/* Small Mobile (max-width: 480px) */
 @media (max-width: 480px) {
   .company-dashboard {
     width: 95%;
@@ -284,25 +300,11 @@ butt.company-dashboard .section table td buttonon.secondary:hover {
     top: 10%;
     padding: 20px;
   }
-
-  table,
-  th,
-  td {
-    font-size: 12px;
-  }
-
-  button {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
-
-  .modal-box {
-    width: 90%;
-    padding: 20px;
-  }
+  table, th, td { font-size: 12px; }
+  button { padding: 6px 12px; font-size: 12px; }
+  .modal-box { width: 90%; padding: 20px; }
 }
 
-/* Medium Mobile / Small Tablets */
 @media (min-width: 481px) and (max-width: 767px) {
   .company-dashboard {
     width: 90%;
@@ -310,19 +312,10 @@ butt.company-dashboard .section table td buttonon.secondary:hover {
     top: 12%;
     padding: 25px;
   }
-
-  table,
-  th,
-  td {
-    font-size: 13px;
-  }
-
-  .modal-box {
-    width: 90%;
-  }
+  table, th, td { font-size: 13px; }
+  .modal-box { width: 90%; }
 }
 
-/* Tablets */
 @media (min-width: 768px) and (max-width: 991px) {
   .company-dashboard {
     width: 85%;

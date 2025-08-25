@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./CompanyForm.css";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
+
 
 export default function CompanyForm() {
   const [company, setCompany] = useState({
@@ -11,6 +14,8 @@ export default function CompanyForm() {
   });
 
   const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,10 +25,25 @@ export default function CompanyForm() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-  };
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+  if (!company.name) {
+    dispatch(showToast({ type: "error", message: "Company name is required" }));
+    return;
+  }
+
+  dispatch(showToast({ type: "success", message: "Company added successfully!" }));
+
+  // Reset form
+  setCompany({
+    name: "",
+    email: "",
+    website: "",
+    phone: "",
+    address: ""
+  });
+};
 
   return (
     <div className="company-form-container">

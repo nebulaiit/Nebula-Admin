@@ -4,6 +4,8 @@ import bg from "../../Images/login.png";
 import "./ResetPassword.css"; // Ensure this file is created for styling
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import { Button } from '@mui/material';
+import { useDispatch } from "react-redux";
+import { showToast } from "../redux/toastSlice";  // ✅ import toast
 
 
 export default function ResetPassword() {
@@ -14,16 +16,21 @@ const [username, setUsername] = useState("");
 console.log(username)
 
 const navigate = useNavigate();
+  const dispatch = useDispatch(); // ✅ hook for dispatch
 
 
 const handleReset = () => {
   if (!username) {
-    alert("Please enter a username.");
+     dispatch(showToast({ type: "error", message: "Please enter a username." })); // ❌ empty
     return;
   }
+dispatch(showToast({ type: "success", message: "Proceeding to reset password." })); // ✅ success
 
-  navigate("/NewPassword", { state: { username } });
-};
+    // navigate after short delay (optional UX)
+    setTimeout(() => {
+      navigate("/NewPassword", { state: { username } });
+    }, 1000);
+  };
   return (
     <>
      <div className="reset-container">

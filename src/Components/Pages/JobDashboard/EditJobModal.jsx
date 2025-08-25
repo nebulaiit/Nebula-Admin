@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import './CompanyDashboard.css';
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 
 const EditJobModal = ({ job, onClose }) => {
   const [form, setForm] = useState({ ...job });
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = () => {
-    alert('Job Updated!');
+    dispatch(showToast({
+      message: "Job updated successfully 🎉",
+      type: "success",
+    }));
+    // Later you can call your API here instead of just success
+    // await updateJobAPI(form);
+
     onClose();
   };
 
