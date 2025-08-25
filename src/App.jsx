@@ -20,6 +20,7 @@ import EditCourse from './Components/Pages/EditCourse/EditCourse'
 import CompanyDashboard from './Components/Pages/JobDashboard/CompanyDashboard.'
 import JobMainPage from './Components/Pages/AddJobs/JobMainPage'
 import ToastList from './Components/Toast/ToastList'
+import StudentDashboard from './Components/Pages/StudentDashboard/StudentDashboard';
 
 
 
@@ -49,7 +50,7 @@ function App() {
           <Route path="/course/:id" element={<CourseDetail />} />
           <Route path="/job-dashboard" element={<CompanyDashboard />} />
           <Route path="/add-job-opening" element={<JobMainPage />} />
-          
+          <Route path='/student-dashboard' element={<StudentDashboard/>}/>
         </Routes>
         <ToastList />
       </BrowserRouter>

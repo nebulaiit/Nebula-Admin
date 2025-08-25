@@ -1,0 +1,290 @@
+.dashboard-container {
+  width: 78%;
+  position: absolute;
+  left: 20%;
+  top: 15%;
+  padding: 30px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #121212, #1e1e1e);
+  color: var(--text-light, #f0f0f0);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.4s ease-out;
+}
+
+.dashboard-container  .dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-container  .dashboard-header .primary-btn,
+.secondary-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.dashboard-container  .dashboard-header .primary-btn {
+  background: #4a90e2;
+  color: white;
+  transition: background 0.2s ease-in;
+}
+
+.dashboard-container  .dashboard-header .primary-btn:hover {
+  background: #357ab8;
+}
+
+.secondary-btn {
+  background: #ddd;
+  color: #333;
+}
+
+.secondary-btn:hover {
+  background: #bbb;
+}
+
+.dashboard-container  .student-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1e1e1e;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.student-table th,
+.student-table td {
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.student-table th {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+
+.student-table td {
+  background: #1e1e1e;
+  color: #f0f0f0;
+  font-size: 14px;
+}
+
+.student-table tr:hover td {
+  background: #292929;
+  transition: background 0.2s ease-in-out;
+}
+
+/* Zebra striping */
+.student-table tbody tr:nth-child(even) td {
+  background: #252525;
+}
+
+/* Empty state */
+.no-data {
+  text-align: center;
+  padding: 20px;
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Modal */
+.dashboard-container .modal-overlay {
+  position: fixed;
+  width: 82%;
+  height: 100vh;
+  top: 6%;
+  left: 18%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-container .modal-overlay .modal-box {
+  background: #1e1e1e; /* Dark background */
+  padding: 28px;
+  border-radius: 12px;
+  width: 500px;
+  height: 80vh;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  color: #f0f0f0;
+}
+
+/* Form labels */
+.dashboard-container .modal-overlay .modal-box .student-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+/* Inputs & Selects */
+.dashboard-container .modal-overlay .modal-box .student-form input{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 14px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background: #2a2a2a;
+  color: #f0f0f0;
+  font-size: 14px;
+  transition: border 0.2s ease-in, background 0.2s ease-in;
+}
+
+.dashboard-container .modal-overlay .modal-box .student-form input:focus{
+  border: 1px solid #4a90e2;
+  outline: none;
+  background: #333;
+}
+
+/* Form actions (buttons row) */
+.dashboard-container .modal-overlay .modal-box .student-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.dashboard-container .modal-overlay .modal-box .student-form .dropdown {
+  position: relative;
+  margin-top: 4px;
+}
+
+.dashboard-container .modal-overlay .modal-box .student-form .dropdown .dropdown-toggle {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dashboard-container .modal-overlay .modal-box .student-form .dropdown .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 6px;
+  margin-top: 4px;
+  z-index: 10;
+}
+
+.dashboard-container .modal-overlay .modal-box .student-form .dropdown .dropdown-menu .dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.dashboard-container .modal-overlay .modal-box .student-form .dropdown .dropdown-menu .dropdown-item:hover {
+  background: #f4f4f4;
+}
+
+/* Input and select styling */
+.dashboard-container .modal-overlay .modal-box .student-form input[type="number"],
+.dashboard-container .modal-overlay .modal-box .student-form select {
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  background: #2a2a2a;
+  color: #f0f0f0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Focus state */
+.dashboard-container .modal-overlay .modal-box .student-form input[type="number"]:focus,
+.dashboard-container .modal-overlay .modal-box .student-form select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* Dropdown (select) arrow fix for consistency */
+.dashboard-container .modal-overlay .modal-box .student-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-size: 14px;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+/* Ensure consistent sizing */
+.dashboard-container .modal-overlay .modal-box .student-form input,
+.dashboard-container .modal-overlay .modal-box .student-form select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* Buttons inside modal */
+.dashboard-container .modal-overlay .modal-box .student-form .form-actions button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease-in;
+}
+
+.dashboard-container .modal-overlay .modal-box .student-form .form-actions .cancel-btn {
+  background: #444;
+  color: #ccc;
+}
+
+.dashboard-container .modal-overlay .modal-box .student-form .form-actions .cancel-btn:hover {
+  background: #555;
+}
+
+.dashboard-container .modal-overlay .modal-box .student-form .form-actions .submit-btn {
+  background: #4a90e2;
+  color: white;
+}
+
+.dashboard-container .modal-overlay .modal-box .student-form .form-actions .submit-btn:hover {
+  background: #357ab8;
+}
+
+
+/* Stylish Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a; /* Dark track */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4a90e2, #357ab8);
+  border-radius: 10px;
+  border: 2px solid #1a1a1a; /* Adds gap effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #5aa0f5, #4688d6);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4a90e2 #1a1a1a;
+}
